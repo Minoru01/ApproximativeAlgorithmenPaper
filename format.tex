@@ -1,0 +1,108 @@
+% ----- Standard IEEEtran Formatting -----
+
+%\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage[table]{xcolor}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+		T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% ----- Custom Formatting -----
+
+% --- Language (can be unneccesary when using babel-package) ---
+
+% Rename "Abstract"
+%\renewcommand{\abstractname}{Zusammenfassung}
+
+% Rename "Index Terms" from IEEEkeywords
+\renewcommand{\IEEEkeywordsname}{Schlüsselworte}
+
+% Rename "References"
+%\renewcommand{\refname}{Literatur}
+
+% Rename "Fig."
+%\renewcommand{\figurename}{Abbildung}
+
+% --- Language and Hyphenation ---
+
+% Correct german hyphenation and renaming of certain keywords
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+
+% Rename "Zusammenfassung" in babel-package
+\addto{\captionsngerman}{\renewcommand{\abstractname}{Abstract}}
+
+% --- Break URLs at hyphens ---
+
+\usepackage[hyphens]{url}
+
+% --- References ---
+
+\usepackage[hidelinks]{hyperref}
+
+% --- Drawing ---
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,calc,positioning}
+
+% --- Bibliography ---
+
+\bibliographystyle{IEEEtranDE}
+
+% --- Enumerations ---
+
+\usepackage{enumerate}
+
+% --- Listings ---
+
+\usepackage{listings}
+\lstset{
+	language=python,
+	basicstyle=\ttfamily\footnotesize,
+	numberstyle=\ttfamily\scriptsize,
+	showstringspaces=false,
+	tabsize=2,
+	keepspaces=true,
+	breaklines=true,
+	breakatwhitespace=true,
+	frame=single,
+	numbers=left,
+	numbersep=1em,
+	xleftmargin=2em,
+	framexleftmargin=2em
+}
+
+\makeatletter
+\def\lst@makecaption{%
+	\def\@captype{table}%
+	\@makecaption
+}
+\makeatother
+
+% --- PDF Metadata ---
+
+\hypersetup{
+	pdfauthor={Autor},
+	pdftitle={Titel},
+	pdfsubject={Thema},
+	pdfkeywords={Stichwörter},
+	bookmarksnumbered
+}
+
+% --- Tables ---
+
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{makecell}
+
+% --- Prevent widows and orphans ---
+
+\usepackage[all]{nowidow}
+
+% --- Todo Notes (Remove upon hand-in) ---
+
+\usepackage[colorinlistoftodos,prependcaption]{todonotes}
