@@ -3,6 +3,7 @@
 *.acr
 *.alg
 *.aux
+*.bat
 *.bbl
 *.bcf
 *.blg
