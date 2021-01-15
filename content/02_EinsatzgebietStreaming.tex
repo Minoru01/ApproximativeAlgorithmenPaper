@@ -1,6 +1,8 @@
 \section{Einsatzgebiet Streamverarbeitung}
-Bei der Streamverarbeitung treten einige Anforderungen auf, die es bei der Bearbeitung der anfallenden Daten berücksichtigen gilt. 
-So treffen die Daten in einem Stream beispielsweise kontinuierlich ein und sollten abgearbeitet werden bevor die nächsten Daten eintreffen. 
+Bei der Streamverarbeitung treten einige Anforderungen auf, 
+die es bei der Bearbeitung der anfallenden Daten berücksichtigen gilt. 
+So treffen die Daten in einem Stream beispielsweise kontinuierlich ein und sollten abgearbeitet werden,
+bevor die nächsten Daten eintreffen. 
 Außerdem sollen die aus dem Stream gewonnenen Informationen möglichst in Echtzeit abrufbar bleiben.
 Auch die Datenmenge in einem Stream kann stark variieren, wodurch ein hohes Maß an Skalierbarkeit gefordert werden kann.
 
@@ -8,7 +10,8 @@ Unter diesen Anforderungen bieten sich approximative Algorithmen an, denn sie bi
 Für diesen Vorteil büßen sie jedoch ihre absolute Genauigkeit ein. 
 In der Praxis überwiegt der Gewinn von Geschwindigkeit dem Verlust an Genauigkeit jedoch häufig \cite{Maas2019}. 
 
-Die Datenverarbeitung in einem Stream durch approximative Algorithmen unterliegt drei Eigenschaften, die sich gegenseitig beeinflussen \cite{Maas2019}. 
+Die Datenverarbeitung in einem Stream durch approximative Algorithmen unterliegt drei Eigenschaften, 
+die sich gegenseitig beeinflussen \cite{Maas2019}. 
 
 \begin{itemize}
 \item
@@ -19,5 +22,12 @@ der Ausführung in Echtzeit (Performanz)
 und der zu verarbeitende Datenmenge
 \end{itemize}
 
-Diese Eigenschaften beeinflussen sich gegenseitig und führen dazu, dass es fast unmöglich ist für allen drei Eigenschaften die bestmöglichen Resultate zu erzielen.
-So nimmt die Präzision approximativer Algorithmen häufig ab, wenn sie auf die Verwendung für große Datenmengen oder eine möglichst hohe Performanz abzielen \cite{Maas2019}.
+Diese Eigenschaften beeinflussen sich gegenseitig und führen dazu, 
+dass es fast unmöglich ist für allen drei Eigenschaften die bestmöglichen Resultate zu erzielen.
+So nimmt die Präzision approximativer Algorithmen häufig ab, 
+wenn sie auf die Verwendung für große Datenmengen oder eine möglichst hohe Performanz abzielen \cite{Maas2019}.
+
+\subsection{Beispiele}
+hyperloglog wurde zur Aufspürung von Würmern und Computerviren entwickelt. 
+Würmer und Viren öffnen für gewöhnlich eine große Anzahl an Verbindungen durch die sie versuchen einzudringen. 
+Durch die überwachung des Datenverkehrs auf Basis von Kardinalitäten dieser Verbindungen konnten diese aufgespürt werden. \cite{flajolet2007}
