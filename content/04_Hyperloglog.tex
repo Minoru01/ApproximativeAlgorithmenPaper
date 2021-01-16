@@ -7,9 +7,9 @@ Der Hyperloglog-Algorithmus basiert auf dem Flajolet-Martin-Algorithmus.
 Dieser wurde von Durand und Flajolet \cite{durand2003} zum Loglog-Algorithmus 
 und durch Flajolet et al. \cite{flajolet2007} schlussendlich zum Hyperloglog-Algorithmus weiterentwickelt.
 Er wurde entwickelt, um die ungefähre Anzahl verschiedener Elemente in einer sehr großen Datenmenge zu ermitteln. 
+Durch die Überarbeitung konnte der Speicherbedarf des Hyperloglog-Algoritmus 
+gegenüber dem Loglog-Algorithmus um 64\% gesenkt werden ohne Präzision einzubüßen \cite{flajolet2007}. 
 
-
-The main benefit of using HLL over LL is that it only requires 64\% of the space that LL does to get the same accuracy. 
 
 In practice, the HYPERLOGLOG program is quite efficient: like the standard LOGLOG of [10] or
 MINCOUNT of [16], its running time is dominated by the computation of the hash function, so that it is
@@ -25,10 +25,7 @@ of data (only a “good” hash function is needed), and, once duly equipped wit
 smoothly cope with a wide range of cardinalities–from very small to very large. In addition, it parallelizes
 or distributes4 optimally and can be adapted to the “sliding window” usage \cite{flajolet2007}
 
-hyperloglog ist eine verbesserung von loglog \cite{flajolet2007}
-
 mögliche quelle: \\
-Ursprung \cite{flajolet2007},
 Hyperloglog++ verbesserung durch google \cite{heule2013},
 außerdem siehe auskommentiert hier:
 %https://databricks.com/de/blog/2016/05/19/approximate-algorithms-in-apache-spark-hyperloglog-and-quantiles.html
