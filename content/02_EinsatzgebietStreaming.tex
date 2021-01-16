@@ -27,6 +27,18 @@ dass es fast unmöglich ist für allen drei Eigenschaften die bestmöglichen Res
 So nimmt die Präzision approximativer Algorithmen häufig ab, 
 wenn sie auf die Verwendung für große Datenmengen oder eine möglichst hohe Performanz abzielen \cite{Maas2019}.
 
+In Datenstreams kann es interessant sein zu wissen, wie die Verteilung der Daten ausfallen wird. 
+So können beispielsweise Netzanbieter ermitteln, 
+wie viele ihrer Kunden die Bandbreite erhalten die ihnen zur verfügung stehen sollte 
+und können eine Störung erfassen noch bevor sich größere Mengen von Kunden über eine zu niedrige Bandbreite beschweren können.
+Auch kann es hilfreich sein, zu erfassen wie viele verschiedenen Daten in einem Stream bereits aufgetreten sind. 
+So lässt sich beispielsweise auf einer Webseite wie Wikipedia über einen Tag ermitteln, 
+wie viele verschiedene Nutzer Einträge verändert haben. 
+Die ermittelte Zahl kann dann mit der Gesammtzahl an Änderungen über den Tag verglichen werden, 
+um so zu erfahren, ob an einem Tag besonders viele Änderungen von  besonders wenigen Nutzern gemacht wurden.
+Für beide Anwendungsfälle eignet sich der Hyperloglog-Algorithmus besonders gut, 
+weil er sich durch Schnelligkeit bei der Auswertung, Speicherplatzbedarf und Präzision bewiesen hat. \cite{quelle}
+
 \subsection{Beispiele}
 hyperloglog wurde zur Aufspürung von Würmern und Computerviren entwickelt. 
 Würmer und Viren öffnen für gewöhnlich eine große Anzahl an Verbindungen durch die sie versuchen einzudringen. 

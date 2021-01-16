@@ -1,15 +1,21 @@
 \section{Einleitung}
 Was sind approximative Algorithmen?\\
-Eingesetzter Algorithmus hängt von Einsatzgebiet ab.\\
 
 
 
 
+Das Apache Flink \cite{quoc2019}
 
-Das Apache Spark Framework bietet eine Bibliotheke für die Verarbeitung von Datenströmen in Java, Scala und Python. Für die verarbeitung der Datenströme stehen dabei seit der Version 1.6 auch approximative Algorithmen zur Verfügung.
+Das Apache Spark Framework bietet eine Bibliotheke für die Verarbeitung von Datenströmen in Java, Scala und Python. Dafür stehen seit der Version 2.0 unter anderem auch die Funktionen \texttt{approxCountDistinct} und \texttt{approxQuantile} zur Verfügung. 
+Beide Funktionen nutzen den Hyperloglog++ Algorithmus um eine ungefähre Lösung zu liefern \cite{hunter2016}.
+Hierbei kann mit \texttt{approxCountDistinct} für die Daten eines Streams die ungefähre Anzahl unterschiedlicher Worte und mit \texttt{approxQuantile} ein Wert zu einer bestimmten Quantile ausgegeben werden \cite{hunter2016}. 
+
+import für loglog hyperloglog und hyperloglog++ unter Java:
+\texttt{com.clearspring.analytics.stream.cardinality.Class LogLog}
+\texttt{com.clearspring.analytics.stream.cardinality.HyperLogLog}
+\texttt{hyperloglog++ com.clearspring.analytics.stream.cardinality.HyperLogLogPlus}
+
 
 \todo[inline]{Apache Spark dokumentation zur hilfe nehmen und nachschauen welche algorithmen alles angeboten werden und ggf mit algorithmen anderer anbieter vergleichen}
-
-
 
 \todo[inline]{über vorläufige Datenexploration (preliminary data exploration) informieren}

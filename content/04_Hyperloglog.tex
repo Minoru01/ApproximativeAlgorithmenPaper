@@ -1,7 +1,15 @@
 \section{Test: Hyperloglog}
-In diesem Kapitel wird der Hyperloglog Algorithmus getestet indem er von Wikipedia zur verfügung gestellte Datenstreams verarbeitet. Das Ergebnis dieser verarbeitung wird Evaluiert. 
+In diesem Kapitel wird der Hyperloglog Algorithmus getestet, 
+indem er von Wikipedia zur verfügung gestellte Datenstreams verarbeitet. 
+Das Ergebnis dieser verarbeitung wird Evaluiert. 
 
-Hyperloglog ist eine Verbesserung des Loglog-Algorithmus von Durand und Flajolet \cite{durand2003}. Der Hyperloglog-Algorithmus wurde von Flajolet et al. \cite{flajolet2007} entwickelt, um die ungefähre Anzahl verschiedener Elemente in einer sehr großen Datenmenge zu ermitteln. 
+Der Hyperloglog-Algorithmus basiert auf dem Flajolet-Martin-Algorithmus.
+Dieser wurde von Durand und Flajolet \cite{durand2003} zum Loglog-Algorithmus 
+und durch Flajolet et al. \cite{flajolet2007} schlussendlich zum Hyperloglog-Algorithmus weiterentwickelt.
+Er wurde entwickelt, um die ungefähre Anzahl verschiedener Elemente in einer sehr großen Datenmenge zu ermitteln. 
+
+
+The main benefit of using HLL over LL is that it only requires 64\% of the space that LL does to get the same accuracy. 
 
 In practice, the HYPERLOGLOG program is quite efficient: like the standard LOGLOG of [10] or
 MINCOUNT of [16], its running time is dominated by the computation of the hash function, so that it is
