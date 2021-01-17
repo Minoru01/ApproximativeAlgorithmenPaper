@@ -1,0 +1,23 @@
+\section{Proof of Concept}
+
+
+
+\begin{equation}
+	\frac{n}{\frac{1}{x_1}+\frac{1}{x_2}+\ldots+\frac{1}{x_3}}=\frac{n}{\displaystyle\sum_{i=1}^{n}\frac{1}{x_i}}=\left(\frac{\displaystyle\sum_{i=1}^{n}x_i^{-1}}{n}\right)^{-1}
+	\label{eq:harmonic-mean}
+\end{equation}
+
+\autoref{eq:harmonic-mean}
+
+
+
+\begin{equation}
+	\begin{aligned}
+		e& = \frac{1.04}{\sqrt{m}} \\
+		m& = \left(\frac{1.04}{e}\right)^2 = 2^b \\
+		b& = \log_2 m = \log_2 \left(\frac{1.04}{e}\right)^2
+	\end{aligned}
+	\label{eq:target-error}
+\end{equation}
+
+Der benötigte Speicherplatz -- also die Anzahl an benötigten Registern und führender Bits -- lässt sich wie in \autoref{eq:target-error} dargestellt berechnen. So benötigt die in unserem Beispielprogramm gewählte Genauigkeit von einem Prozent $b = log_2 \left(\frac{1.04}{0.01}\right)^2 = 13.40$, beziehungsweise aufgerundet die 14 führenden Bits des Hashes. Dies führt zu $m = 2^{14} = 16384$ benötigten Registern und somit einem maximalen Speicherverbrauch von 16\,384 Byte.
