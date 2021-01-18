@@ -1,27 +1,22 @@
-\section{Vorstellung: Algorithmen}
-Im Folgenden werden approximative Algorithmen vorgestellt die in der Streamverarbeitung nutzbringend eingesetzt werden können.
+\section{Vorstellung: Framworks}
+Im Folgenden werden Frameworks vorgestellt die approximative Algorithmen für die Streamverarbeitung anbieten.
 
-\subsection{StreamApprox}
-StreamApprox ist ein Algorithmus der dafür entwickelt wurde, 
-die Datenmenge eines Streams auf eine bestimmte Größe zu limitieren, 
-indem er nur einige der Daten des Streams zur weiterreicht. 
-Dabei erfolgt die Selektierung welche der Daten weiter gegeben werden durch einen Zufallsalgorithmus. 
-Auf diese Weise wird das Ergebnis der Auswertung des Streams weniger stark beeinträchtigt, 
-als wenn die Daten, die die Verarbeitungskapazitäten überschreiten, 
-überhaupt nicht betrachtet werden. 
-Der Algorithmus ist dabei sowohl auf Batch-, als auch auf Pipeline-basierte Streams anwendbar.
-Das besondere an StreamApprox ist die Fähigkeit, 
-die Größe des Streams zu limitieren und dabei so wenig Daten wie möglich aus dem Stream zu entfernen. 
-Der Algorithmus reduziert also nur dann den Datenstrom, wenn dieser ein eingestelltes Limit überschreitet. 
-Diese Fähigkeit übersteigt die von random sampling Algorithmen, 
-die für eine ähnliche Ausgabe die absolute Anzahl an Elementen des Streams kennen müssten. 
-Ermöglicht wird das durch die Verwendung von reservoir Sampling, 
-bei dem die Elemente des Streams in einen Pufferspeicher geschrieben werden, 
-wobei neue Elemente an einer zufälligen Stelle des Puffers den vorherigen Wert überschreiben. \cite{quoc2017} 
+Das Apache Spark Framework bietet eine Bibliotheke für die Verarbeitung von Streams in Java, Scala und Python. 
+In diesem Framework stehen seit der Version 2.0 unter anderem auch die Funktionen \texttt{approxCountDistinct} und \texttt{approxQuantile} zur Verfügung. 
+\texttt{approxCountDistinct} nutzt den HyperLogLog++ Algorithmus um eine ungefähre Lösung für das ihm gegebene Problem zu liefern \cite{hunter2016}.
+Hierbei kann mit \texttt{approxCountDistinct} für die Daten eines Streams die ungefähre Anzahl unterschiedlicher Worte 
+und mit \texttt{approxQuantile} ein ungefährer Wert zu einer bestimmten Quantile ausgegeben werden \cite{hunter2016}. 
 
-Dieses Vorgehen kann hilfreich sein, 
-wenn die Datenmenge für die gewünschte Analyse stark varriert oder unnötig groß ist und reduziert werden soll, 
-um eine bestimmte Verarbeitungsgeschwindigkeit beizubehalten, 
-ohne das Ergebnis der Analyse zu stark zu beeinflussen.
-Es kann ebenfalls hilfreich sein, 
-wenn aufgrund von fehlender Ressourcen zur Verarbeitung die Menge an gelieferten Daten reduziert werden soll.
+\todo[inline]{quelle von apache spark approxQuantile überprüfen %https://spark.apache.org/docs/2.1.0/api/R/approxQuantile.html
+%http://dx.doi.org/10.1145/375663.375670
+}
+
+Implementierungen verbreiteter approximativer Algorithmen findet man in einigen weiteren Bibliotheken. 
+Ein Beispiel für eine solche Bilbiothek ist stream-lib.
+stream-lib bietet unter anderem die Algorithmen LogLog, 
+HyperLogLog und HyperLogLog++ für die Berechnung von Kardinalitäten in Streams, 
+sowie die Algorithmen T-Digest und Q-Digest für die Berechnung von Quantilen in Streams. 
+
+%https://github.com/addthis/stream-lib
+
+\todo[inline]{Apache Spark Dokumentation zur Hilfe nehmen und nachschauen welche Algorithmen alles angeboten werden und ggf mit Algorithmen anderer Anbieter vergleichen}
