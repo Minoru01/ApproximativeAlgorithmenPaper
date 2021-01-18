@@ -1,13 +1,5 @@
 \section{Proof of Concept}
 
-\begin{figure*}[b]
-	\centering
-	\includegraphics[width=.49\textwidth]{images/hll_count_1.png}
-	\includegraphics[width=.49\textwidth]{images/hll_count_2.png}
-	\caption{Genauigkeit naiver Implementierung gegenüber HyperLogLog}
-	\label{fig:hll-count}
-\end{figure*}
-
 Zum Testen eines approximativen Algorithmus haben wir uns für das Zählen unterschiedlicher Elemente mithilfe des HyperLogLog-Algorithmus entschieden.
 Als Datenquelle haben wir die Änderungen von Wikipedia-Artikeln gewählt, um so zu approximieren, wie viele unterschiedliche Artikel täglich geändert werden.
 
@@ -54,19 +46,42 @@ Dies führt zu $m = 2^{14} = 16\,384$ benötigten Registern und somit einem maxi
 	\label{eq:target-error}
 \end{equation}
 
-Bei der Beobachtung ergab sich im Bereich bis etwa 50\,000 einzigartiger Einträge eine starke Abweichung des selbst implementierten HyperLogLog-Algorithmus ohne Beachtung des Bias.
-So erreichte dieser die gewünschte Genauigkeit von 99\% erstmals bei 49\,265 Einträgen und hielt sie konstant erst ab 49\,932.
-Die Implementierung des HyperLogLog von \cite{evseenko2018} überschritt die Abweichung von 1\% über den gesamten Verlauf nur 356 mal.
+\subsection{Ergebnis der Streambeobachtung}
 
-Der gemessene Speicherbedarf bei der HyperLogLog-Implementierung lag, wie in \autoref{fig:hll-memory} dargestellt, stabil bei den zuvor berechneten 16\,384~Byte.
+Bei der Beobachtung ergab im Bereich bis etwa 50\,000 einzigartiger Einträge eine starke Abweichung des selbst implementierten HyperLogLog-Algorithmus (siehe \autoref{fig:hll-count}).
+So erreichte dieser die gewünschte Genauigkeit von 99\% erstmals bei 49\,265 Einträgen und hielt sie konstant erst ab 49\,932.
+Die Implementierung des HyperLogLog von Evseenko \cite{evseenko2018} überschritt die Abweichung von 1\% über den gesamten Verlauf nur 356 mal.
+
+\begin{figure*}[t]
+	\centering
+	\includegraphics[width=.49\textwidth]{images/hll_count_1.png}
+	\includegraphics[width=.49\textwidth]{images/hll_count_2.png}
+	\caption{Genauigkeit naiver Implementierung gegenüber HyperLogLog}
+	\label{fig:hll-count}
+\end{figure*}
+
+Diese Abweichung entstammt einem Bias des HyperLogLog-Algorithmus, weshalb niedrige Kardinalitäten stark überschätzt werden \cite{heule2013}.
+Um diesem Problem entgegenzuwirken, kann eine Linear-Counting-Funktion unterhalb einer gewissen Schwelle eingesetzt werden, was auch in der bezogenen Implementierung verwendet wird \cite{evseenko2018}.
+
+Der gemessene Speicherbedarf bei der HyperLogLog-Implementierung lag, wie in \autoref{hll-memory} dargestellt, stabil bei den zuvor berechneten 16\,384~Byte.
 Demhingegen steigt der Speicherverbrauch der naiven Python-Implementierung in einer Menge rasant an.
 Zu beachten ist hierbei die logarithmische Skala der Abbildung.
 So steigt der Speicherbedarf des Python-Sets schon beim Einfügen des 309.
 Elements auf das Doppelte des HyperLogLog-Speicherbedarfs und bis zum Ende auf das Zehnfache.
 
-%\begin{figure}[h!]
-%	\centering
-%	\includegraphics[width=0.49\textwidth]{images/hll_memory.png}
-%	\caption{Speicherbedarf naiver Implementierung gegenüber HyperLogLog}
-%	\label{fig:hll-memory}
-%\end{figure}
+\begin{figure}[b!]
+	\centering
+	\includegraphics[width=0.49\textwidth]{images/hll_memory.png}
+	\caption{Speicherbedarf naiver Implementierung gegenüber HyperLogLog}
+	\label{fig:hll-memory}
+\end{figure}
+
+Der Vorteil des HyperLogLog-Algorithmus stellt sich klar im Bereich größerer Datenmengen heraus.
+Durch den konstanten Speicherverbrauch und eine hohen Präzision bei größeren Datenmengen bietet sich der Algorithmus hier an, da bei naiver Datenspeicherung in einer Menge der benötigte Speicher stark ansteigt.
+Flajolet et al. \cite{flajolet2007} beschreiben eine gute Approximation für Kardinalitäten $N <= 10^9$.
+Ein Test mit Kardinalität dieser Größenordnung konnte aus zeittechnischen Gründen nicht durchgeführt werden.
+
+Da der Hauptteil der Approximation erst bei der Abfrage durchgeführt wird, ist das Hinzufügen eines Wertes zu einem HyperLogLog-Speicher außerdem sehr schnell.
+Im durchgeführten Test ergab sich für die naive Implementierung mit einer Menge eine durchschnittliche Zeit der Größenordnung 10\textsuperscript{-7}\,Sekunden (100\,ns), für die HyperLogLog-Varianten je 10\textsuperscript{-6}\,Sekunden (1\,\textmu{}s).
+Das Abfragen der Länge ging jedoch erwartungsgemäß etwas länger.
+Die Länge der Menge wurde in einer Größenordnung von 10\textsuperscript{-8}\,Sekunden (10\,ns) ermittelt, wobei die Approximationen je im Bereich 10\textsuperscript{-3} bis 10\textsuperscript{-2}\,Sekunden (1--10\,ms) lagen.
