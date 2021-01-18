@@ -1,6 +1,7 @@
 from hashlib import sha1
 from math import ceil, log
 from mpmath import inf, quad
+from numpy import array, int8
 from sys import getsizeof
 
 h = lambda d: int(sha1(
@@ -23,7 +24,9 @@ class HyperLogLog():
 
 		self.b = int(ceil(log((1.04 / error) ** 2, 2)))
 		self.m = 2 ** self.b
-		self.M = [0 for i in range(self.m)]
+		self.M = array(
+			[0 for i in range(self.m)],
+			dtype=int8)
 		self.alpha = alpha(self.m)
 
 	def add(self, v):
@@ -39,8 +42,8 @@ class HyperLogLog():
 		E = self.alpha * self.m ** 2 * Z
 		return round(E)
 	
-	def get_size(self, helpers=False):
-		size = getsizeof(self.M)
+	def __sizeof__(self, helpers=False):
+		size = self.M.itemsize * self.M.size
 		if helpers:
 			size += getsizeof(self.b)
 			size += getsizeof(self.m)
