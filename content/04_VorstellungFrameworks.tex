@@ -1,0 +1,27 @@
+\section{Vorstellung: Algorithmen}
+Im Folgenden werden approximative Algorithmen vorgestellt die in der Streamverarbeitung nutzbringend eingesetzt werden können.
+
+\subsection{StreamApprox}
+StreamApprox ist ein Algorithmus der dafür entwickelt wurde, 
+die Datenmenge eines Streams auf eine bestimmte Größe zu limitieren, 
+indem er nur einige der Daten des Streams zur weiterreicht. 
+Dabei erfolgt die Selektierung welche der Daten weiter gegeben werden durch einen Zufallsalgorithmus. 
+Auf diese Weise wird das Ergebnis der Auswertung des Streams weniger stark beeinträchtigt, 
+als wenn die Daten, die die Verarbeitungskapazitäten überschreiten, 
+überhaupt nicht betrachtet werden. 
+Der Algorithmus ist dabei sowohl auf Batch-, als auch auf Pipeline-basierte Streams anwendbar.
+Das besondere an StreamApprox ist die Fähigkeit, 
+die Größe des Streams zu limitieren und dabei so wenig Daten wie möglich aus dem Stream zu entfernen. 
+Der Algorithmus reduziert also nur dann den Datenstrom, wenn dieser ein eingestelltes Limit überschreitet. 
+Diese Fähigkeit übersteigt die von random sampling Algorithmen, 
+die für eine ähnliche Ausgabe die absolute Anzahl an Elementen des Streams kennen müssten. 
+Ermöglicht wird das durch die Verwendung von reservoir Sampling, 
+bei dem die Elemente des Streams in einen Pufferspeicher geschrieben werden, 
+wobei neue Elemente an einer zufälligen Stelle des Puffers den vorherigen Wert überschreiben. \cite{quoc2017} 
+
+Dieses Vorgehen kann hilfreich sein, 
+wenn die Datenmenge für die gewünschte Analyse stark varriert oder unnötig groß ist und reduziert werden soll, 
+um eine bestimmte Verarbeitungsgeschwindigkeit beizubehalten, 
+ohne das Ergebnis der Analyse zu stark zu beeinflussen.
+Es kann ebenfalls hilfreich sein, 
+wenn aufgrund von fehlender Ressourcen zur Verarbeitung die Menge an gelieferten Daten reduziert werden soll.

@@ -1,30 +1,23 @@
 \section{Einleitung}
-Was sind approximative Algorithmen?\\
+Approximative Algorithmen sind Algorithmen die für ein Problem eine Lösung durch Annäherung finden. Die Lösung kann hierbei von der idealen Lösung abweichen. Dieses Verhalten dient häufig dazu, NP-Schwere Probleme in polynomialer Zeit zu lösen.
+In der Praxis haben sich diese Algorithmen bewährt, weil für verschiedene Anwendungsfälle die Präzision des Ergebnisses weniger wichtig ist als die Geschwindigkeit mit der der Algorithmus ein Ergebnis liefert.
 
-
-
-
-Das Apache Flink \cite{quoc2019}
-
-Das Apache Spark Framework bietet eine Bibliotheke für die Verarbeitung von Datenströmen in Java, Scala und Python. 
-Dafür stehen seit der Version 2.0 unter anderem auch die Funktionen \texttt{approxCountDistinct} und \texttt{approxQuantile} zur Verfügung. 
-Beide Funktionen nutzen den Hyperloglog++ Algorithmus um eine ungefähre Lösung für das ihnen gegebene Problem zu liefern \cite{hunter2016}.
+Das Apache Spark Framework bietet eine Bibliotheke für die Verarbeitung von Streams in Java, Scala und Python. 
+In diesem Framework stehen seit der Version 2.0 unter anderem auch die Funktionen \texttt{approxCountDistinct} und \texttt{approxQuantile} zur Verfügung. 
+\texttt{approxCountDistinct} nutzt den HyperLogLog++ Algorithmus um eine ungefähre Lösung für das ihm gegebene Problem zu liefern \cite{hunter2016}.
 Hierbei kann mit \texttt{approxCountDistinct} für die Daten eines Streams die ungefähre Anzahl unterschiedlicher Worte 
 und mit \texttt{approxQuantile} ein ungefährer Wert zu einer bestimmten Quantile ausgegeben werden \cite{hunter2016}. 
 
+\todo[inline]{quelle von apache spark approxQuantile überprüfen %https://spark.apache.org/docs/2.1.0/api/R/approxQuantile.html
+%http://dx.doi.org/10.1145/375663.375670
+}
+
 Implementierungen verbreiteter approximativer Algorithmen findet man in einigen weiteren Bibliotheken. 
 Ein Beispiel für eine solche Bilbiothek ist stream-lib.
-stream-lib bietet unter anderem die Algorithmen Loglog, 
-Hyperloglog und Hyperloglog++ für die Berechnung von Kardinalitäten in Streams, 
+stream-lib bietet unter anderem die Algorithmen LogLog, 
+HyperLogLog und HyperLogLog++ für die Berechnung von Kardinalitäten in Streams, 
 sowie die Algorithmen T-Digest und Q-Digest für die Berechnung von Quantilen in Streams. 
 
 %https://github.com/addthis/stream-lib
-import für Loglog hyperloglog und hyperloglog++ unter Java:
-\texttt{com.clearspring.analytics.stream.cardinality.Class LogLog}
-\texttt{com.clearspring.analytics.stream.cardinality.HyperLogLog}
-\texttt{hyperloglog++ com.clearspring.analytics.stream.cardinality.HyperLogLogPlus}
 
-
-\todo[inline]{Apache Spark dokumentation zur hilfe nehmen und nachschauen welche algorithmen alles angeboten werden und ggf mit algorithmen anderer anbieter vergleichen}
-
-\todo[inline]{über vorläufige Datenexploration (preliminary data exploration) informieren}
+\todo[inline]{Apache Spark Dokumentation zur Hilfe nehmen und nachschauen welche Algorithmen alles angeboten werden und ggf mit Algorithmen anderer Anbieter vergleichen}
