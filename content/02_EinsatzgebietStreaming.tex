@@ -10,8 +10,8 @@ Unter diesen Anforderungen bieten sich approximative Algorithmen an, denn sie bi
 Für diesen Vorteil büßen sie jedoch ihre absolute Genauigkeit ein. 
 In der Praxis überwiegt der Gewinn von Geschwindigkeit dem Verlust an Genauigkeit jedoch häufig \cite{maas2019}. 
 
-Die Datenverarbeitung in einem Stream durch approximative Algorithmen unterliegt drei Eigenschaften, 
-die sich gegenseitig beeinflussen \cite{maas2019}. 
+Die Datenverarbeitung in einem Stream durch approximative Algorithmen unterliegt den folgenden drei Eigenschaften \cite{maas2019}:  
+
 
 \begin{itemize}
 \item
@@ -22,16 +22,22 @@ der Ausführung in Echtzeit (Performanz)
 und der zu verarbeitende Datenmenge
 \end{itemize}
 
-Diese Eigenschaften beeinflussen sich gegenseitig und führen dazu, 
-dass es fast unmöglich ist für allen drei Eigenschaften die bestmöglichen Resultate zu erzielen.
-So nimmt die Präzision approximativer Algorithmen häufig ab, 
+Diese beeinflussen sich gegenseitig was dazu führt, 
+dass es fast unmöglich ist für alle drei Eigenschaften die bestmöglichen Resultate zu erzielen.
+So nimmt beispielsweise die Präzision approximativer Algorithmen ab, 
 wenn sie auf die Verwendung für große Datenmengen oder eine möglichst hohe Performanz abzielen \cite{maas2019}.
 
-In Datenstreams kann es interessant sein zu wissen, wie die Verteilung der Daten ausfallen wird. So können beispielsweise Netzanbieter ermitteln, wie viele ihrer Kunden die Bandbreite erhalten die ihnen zur verfügung stehen sollte und können eine Störung erfassen noch bevor sich größere Mengen von Kunden über eine zu niedrige Bandbreite beschweren können.
-Auch kann es hilfreich sein, zu erfassen wie viele verschiedenen Daten in einem Stream bereits aufgetreten sind. So lässt sich beispielsweise auf einer Webseite wie Wikipedia über einen Tag ermitteln wie viele verschiedene Nutzer Einträge verändert haben. Die ermittelte Zahl kann dann mit der Gesammtzahl an Änderungen über den Tag verglichen werden, um so zu erfahren, ob an einem Tag besonders viele Änderungen von  besonders wenigen Nutzern gemacht wurden.
-Für beide Anwendungsfälle eignet sich der Hyperloglog-Algorithmus besonders gut, weil er sich durch Schnelligkeit bei der Auswertung, Speicherplatzbedarf und Präzision bewiesen hat.
-
-\subsection{Beispiele}
-hyperloglog wurde zur Aufspürung von Würmern und Computerviren entwickelt. 
-Würmer und Viren öffnen für gewöhnlich eine große Anzahl an Verbindungen durch die sie versuchen einzudringen. 
-Durch die überwachung des Datenverkehrs auf Basis von Kardinalitäten dieser Verbindungen konnten diese aufgespürt werden. \cite{flajolet2007}
+In Datenstreams kann es interessant sein zu wissen, 
+wie die Verteilung der Daten ausfallen wird. 
+So können beispielsweise Netzanbieter ermitteln, 
+wie viele ihrer Kunden die Bandbreite erhalten die ihnen zur verfügung stehen sollte 
+und können eine Störung erfassen, 
+noch bevor sich größere Mengen von Kunden über eine zu niedrige Bandbreite beschweren können.
+Auch kann es hilfreich sein, zu erfassen, 
+wie viele verschiedenen Daten in einem Stream bereits aufgetreten sind. 
+So lässt sich beispielsweise auf einer Webseite wie Wikipedia über einen Tag ermitteln wie viele verschiedene Nutzer Einträge verändert haben. 
+Die ermittelte Zahl kann dann mit der Gesammtzahl an Änderungen über den Tag verglichen werden, 
+um so zu erfahren, ob an einem Tag besonders viele Änderungen von besonders wenigen Nutzern gemacht wurden.
+Für beide Anwendungsfälle eignet sich der Hyperloglog-Algorithmus besonders gut, 
+weil er sich durch Schnelligkeit bei der Auswertung, 
+Speicherplatzbedarf und Präzision bewiesen hat.
