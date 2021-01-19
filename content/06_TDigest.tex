@@ -1,2 +1,26 @@
-\section{Test: T-Digest}
-In diesem Kapitel wird der T-Digest Algorithmus getestet.
+\section{T-Digest}
+
+Der T-Digest ist ein von Ted Dunning entwickelter Algorithmus zum approximieren der Verteilung von Daten mit Quantilen.
+
+Quantile sind Schwellenwerte auf einer Verteilungsfunktion, die für einen gegebenen Prozentsatz angeben, welche Werte unterhalb dieses Schwellenwerts liegen.
+So liefert das 25\%-Quantil beispielweise den Wert, für den gilt, dass 25\% aller Werte in der zugrundeliegenden Datenmenge kleiner sind als dieser Wert.
+Das 50\%-Quantil entspricht somit dem Median einer Datenmenge -- dem Wert, der genau in der Mitte der geordneten Liste steht.
+
+Bei einer naiven Lösung dieser Aufgabe müssen alle eingehenden Daten in einer Liste gespeichert und geordnet werden, woraufhin anschließend die Quantilen ausgelesen werden können.
+Beim T-Digest wird die Verteilung der Daten auf wichtige Punkte, in deren Umgebung viel Veränderung stattfindet, heruntergebrochen \cite{davidsonpilon2015}.
+Diesen Schwerpunkten (engl. Centroids) wird ein Gewicht zugewiesen, woraus sich später eine gute Approximation der Verteilung ableiten lässt.
+Laut Dunning \cite{dunning2015} ist hierbei eine höhere Präzision vor Allem in den Randbereichen der Verteilung von besonderer Wichtigkeit.
+So sei eine Abweichung von etwa 0,5\% im Bereich des Medians in Ordnung, in Extremfällen wie dem 99,99\%-Quantil jedoch nicht mehr, da es hier darauf ankommt, einen sehr kleinen Bereich zu identifizieren.
+
+In einem Test, in dem eine Implementierung des T-Digest-Algorithmus mit einer einfachen, sortierten Liste verglichen wurde, hat sich die Präzision des T-Digest als sehr gut herausgestellt.
+Es wurden 100\,000 verschiedene, zufällige Zahlen von 1 bis 1\,000 in beide Objekte eingetragen, wobei anschließend je der Median, sowie das 99,99\%-Quantil geprüft wurden.
+
+Hierbei ergab sich, dass der Median zwar nur in 0,33\% der Fälle akkurat war, jedoch nie eine Abweichung von $\pm$\,0,5\% überschritt.
+Für das 99,99\%-Quantil war der T-Digest in 99,79\% der Fälle akkurat, in den übrigen Fällen wies er eine Abweichung von maximal $\pm$\,0,01\% auf.
+
+Außerdem hat sich die von Dunning und Ertl \cite{dunning2019} beschriebene, sehr hohe Geschwindigkeit bei diesem Test ebenso bewahrheitet.
+Sowohl das Einfügen in die Liste, als auch in den T-Digest bewegte sich durchschnittlich in der gleichen Größenordnung von 10\textsuperscript{-5}\,Sekunden (10\,\textmu{}s).
+Gleiches gilt für das identifizieren eines Quantils, was in beiden Fällen in der Größenordnung 10\textsuperscript{-4}\,Sekunden (100\,\textmu{}s) passiert.
+
+Ein weiterer Vorteil des T-Digest-Algorithmus ist, dass die Daten mehrerer Digests einfach verbunden werden können, solange man die Gewichte der Schwerpunkte beachtet \cite{dunning2019}.
+Dies ist zum Beispiel nützlich, wenn man einen Median aus mehreren, großen Datensätzen identifizieren möchte, da es hierfür nicht einfach reicht, den Median für jeden Datensatz einzeln zu identifizieren und aus der Liste der Ergebnisse einen neuen Median zu ziehen.

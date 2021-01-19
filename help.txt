@@ -1,0 +1,8 @@
+\blindtext[4]\blindlist{itemize}[7]\blindtext[2]
+\begin{figure*}[t]
+	\centering
+	\includegraphics[width=.49\textwidth]{images/hll_count_1.png}
+	\includegraphics[width=.49\textwidth]{images/hll_count_2.png}
+	\caption{Genauigkeit naiver Implementierung gegenüber HyperLogLog}
+	\label{fig:hll-count}
+\end{figure*}

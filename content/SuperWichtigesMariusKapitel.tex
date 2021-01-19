@@ -4,7 +4,7 @@ Zum Testen eines approximativen Algorithmus haben wir uns für das Zählen unter
 Als Datenquelle haben wir die Änderungen von Wikipedia-Artikeln gewählt, um so zu approximieren, wie viele unterschiedliche Artikel täglich geändert werden.
 
 Die Wikimedia Foundation bietet EventStreams für diverse Änderungen an.
-Für unser Beispiel wichtig ist der unter https://stream.wikimedia.org/v2/stream/recentchange gelieferte Stream über alle Seitenänderungen.
+Für unser Beispiel wichtig ist der unter \url{https://stream.wikimedia.org/v2/stream/recentchange} gelieferte Stream über alle Seitenänderungen.
 Da der Stream Änderungen an diversen Wikis der Wikimedia Foundation überträgt, wurden die einkommenden Events nach der Domain ,,wikipedia.org`` gefiltert.
 
 Die Seitennamen der eingehenden Events wurden dann auf drei verschiedene Arten gespeichert:  in einer Menge, um so eine naive Implementierung und einen Vergleichswert mit den Alternativen herzustellen, in einer bestehenden Implementierung des HyperLogLog-Algorithmus aus der gleichnamigen Python-Bibliothek \cite{evseenko2018} und in einer minimalen, eigenen Implementierung des Algorithmus, zu sehen im Anhang in \autoref{lst:hyperloglog}.
@@ -63,7 +63,7 @@ Die Implementierung des HyperLogLog von Evseenko \cite{evseenko2018} überschrit
 Diese Abweichung entstammt einem Bias des HyperLogLog-Algorithmus, weshalb niedrige Kardinalitäten stark überschätzt werden \cite{heule2013}.
 Um diesem Problem entgegenzuwirken, kann eine Linear-Counting-Funktion unterhalb einer gewissen Schwelle eingesetzt werden, was auch in der bezogenen Implementierung verwendet wird \cite{evseenko2018}.
 
-Der gemessene Speicherbedarf bei der HyperLogLog-Implementierung lag, wie in \autoref{hll-memory} dargestellt, stabil bei den zuvor berechneten 16\,384~Byte.
+Der gemessene Speicherbedarf bei der HyperLogLog-Implementierung lag, wie in \autoref{fig:hll-memory} dargestellt, stabil bei den zuvor berechneten 16\,384~Byte.
 Demhingegen steigt der Speicherverbrauch der naiven Python-Implementierung in einer Menge rasant an.
 Zu beachten ist hierbei die logarithmische Skala der Abbildung.
 So steigt der Speicherbedarf des Python-Sets schon beim Einfügen des 309.
