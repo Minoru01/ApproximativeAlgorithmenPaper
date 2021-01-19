@@ -3,10 +3,13 @@ Im Folgenden werden Frameworks und Bibliotheken vorgestellt die approximative Al
 
 \subsection{Apache Spark}
 Das Apache Spark Framework bietet eine Bibliotheke für die Verarbeitung von Streams in Java, Scala und Python. 
-In diesem Framework stehen seit der Version 2.0 unter anderem auch die Methoden \texttt{approxCountDistinct} und \texttt{approxQuantile} zur Verfügung. 
-\texttt{approxCountDistinct} nutzt den HyperLogLog++ Algorithmus um eine ungefähre Lösung für das ihm gegebene Problem zu liefern \cite{hunter2016}.
+In diesem Framework stehen seit der Version 2.0 unter anderem auch die Methoden \texttt{approxCountDistinct} 
+und \texttt{approxQuantile} zur Verfügung. 
+\texttt{approxCountDistinct} nutzt den HyperLogLog++ Algorithmus, 
+um eine ungefähre Lösung für das ihm gegebene Problem zu liefern \cite{hunter2016}.
 Die Methode kann die ungefähre Anzahl unterschiedlicher Worte für die Daten eines Streams ermitteln.
-\texttt{approxQuantile} nutzt den Greenwald-Khanna Algorithmus \cite{greenwald2001} und kann ein ungefährer Wert zu einer bestimmten Quantile ausgeben.
+\texttt{approxQuantile} nutzt den Greenwald-Khanna Algorithmus \cite{greenwald2001} 
+und kann ein ungefährer Wert zu einer bestimmten Quantile ausgeben.
 
 %https://spark.apache.org/docs/2.1.0/api/R/approxQuantile.html
 %http://dx.doi.org/10.1145/375663.375670
@@ -17,11 +20,25 @@ Die Methode kann die ungefähre Anzahl unterschiedlicher Worte für die Daten ei
 
 
 \subsection{Apache DataSketches}
+Apache DataSketches ist eine Biblitheke für die Sprachen Java, C++ und Python die stochasitische Streamingalgorithmen, 
+auch Sketches genannt anbietet. 
+Diese Sketches können auch sehr große Mengen an Daten aus Streams verarbeiten 
+und liefern dabei approximative Antworten. 
+In welcher Größenordnung sich die Abweichung befinden wird kann dabei mathematisch bestimmt 
+und vor dem Einsatz in einem Projekt einkalkuliert werden.
 
+Neben dem bereits bekannten HyperLogLog Algorithmus bietet DataSketch auch den Compressed Probabilistic Counting (CPC) Algorithmus, 
+für eine noch höhere Präzision bei gleichem Speicherbedarf an.
+Ebenfalls implementiert ist das Theta Sketch Framework, 
+mit dem zum Beispiel der Wert des k-ten Minimums ermittelt werden kann.
+Die Bibliotheke umfasst auch Algorithmen mit denen Quantilen und die häufigsten Elemente eines Streams ermittelt werden können, 
+sowie die Algorithmen reservoir- und weighted-Sampling, mit denen die Datenmenge von Streams reguliert werden können.
+Die Apache DataSketches Bibliothek ist für die Sprachen Java C++ und Python verfügbar.
 
 \subsection{stream-lib}
 Die öffentliche stream-lib Bibliotheke bietet für Java unter anderem die approximativen Algorithmen LogLog, 
 HyperLogLog und HyperLogLog++ für die Berechnung von Kardinalitäten in Streams, 
 sowie die Algorithmen T-Digest und Q-Digest für die Berechnung von Quantilen in Streams. 
-Das Github-Projekt auf dem die Bibliotheke basiert wurde archiviert, es ist also warscheinlich, dass das Projekt von Seiten des Entwicklerteams nicht weiterentwickelt wird. 
+Das Github-Projekt auf dem die Bibliotheke basiert wurde archiviert, 
+es ist also warscheinlich, dass das Projekt von Seiten des Entwicklerteams nicht weiterentwickelt wird. 
 %https://github.com/addthis/stream-lib

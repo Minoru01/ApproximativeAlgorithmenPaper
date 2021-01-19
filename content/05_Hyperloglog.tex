@@ -9,23 +9,3 @@ und durch Flajolet et al. \cite{flajolet2007} schlussendlich zum Hyperloglog-Alg
 Er wurde entwickelt, um die ungefähre Anzahl verschiedener Elemente in einer sehr großen Datenmenge zu ermitteln. 
 Durch die Überarbeitung konnte der Speicherbedarf des Hyperloglog-Algoritmus 
 gegenüber dem Loglog-Algorithmus um 64\% gesenkt werden ohne Präzision einzubüßen \cite{flajolet2007}. 
-
-
-In practice, the HYPERLOGLOG program is quite efficient: like the standard LOGLOG of [10] or
-MINCOUNT of [16], its running time is dominated by the computation of the hash function, so that it is
-only three to four times slower than a plain scan of the data (e.g., by the Unix command “wc -l”, which
-merely counts end-of-lines \cite{flajolet2007}
-
-As a final summary, the algorithm proves to be easy to code and efficient, being even nearly optimal
-under certain criteria. On “real-life” data, it appears to be in excellent agreement with the theoretical analysis,
-a fact recently verified by extensive tests (see Figure 5 for a sample) conducted by Pranav Kashyap,
-whose contribution is here gratefully acknowledged.
-The program can be applied to very diverse collections
-of data (only a “good” hash function is needed), and, once duly equipped with corrections, it can
-smoothly cope with a wide range of cardinalities–from very small to very large. In addition, it parallelizes
-or distributes4 optimally and can be adapted to the “sliding window” usage \cite{flajolet2007}
-
-mögliche quelle: \\
-Hyperloglog++ verbesserung durch google \cite{heule2013},
-außerdem siehe auskommentiert hier:
-%https://databricks.com/de/blog/2016/05/19/approximate-algorithms-in-apache-spark-hyperloglog-and-quantiles.html
