@@ -56,7 +56,7 @@ Dies ist zum Beispiel nützlich, wenn man einen Median aus mehreren, großen Dat
 
 \subsection{Count-Min-Sketch}
 
-Der Count-Min-Sketch ist ein Algorithmus von Cormode und Muthukrishnan \cite{cormode2003}, 
+Der Count-Min-Sketch ist ein Algorithmus von Cormode und Muthukrishnan \cite{cormode2005}, 
 mit dem die Häufigkeit aller Elemente in einem Stream Approximativ ermittelt werden kann. 
 Die Häufigkeiten werden dabei in ein kleines Array geschrieben, 
 wodurch die benötigte Speichergröße für die Datenmenge stark komprimiert, 
@@ -80,7 +80,7 @@ wie hoch der Count für ein Element unter diesem Hash ist.
 Es ergibt sich jedoch, dass der Hashwert des Elements, dessen Count am geringsten ist, 
 durch die wenigsten Hashwerte anderer Elemente erhöht wurde. 
 Somit ist der Hashwert des Elements mit dem geringsten Count der, 
-der dem tatsächlichen Wert am nähsten kommt. \cite{cormode2017}
+der dem tatsächlichen Wert am nähesten kommt. \cite{cormode2017}
 
 Der Aufbau des Algorithmus ähnelt dem des Bloom Filter Algorithmus sehr \cite{cormode2017}. 
 Das Array das für den Bloom Filter ALgorithmus verwendet wird 
