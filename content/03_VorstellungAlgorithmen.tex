@@ -6,7 +6,7 @@ Hier sollen einige Algorithmen mit unterschiedlichen Einsatzgebieten und deren F
 
 \subsection{HyperLogLog}
 
-Der Hyperloglog-Algorithmus basiert auf dem Flajolet-Martin-Algorithmus, welcher erst von Durand und Flajolet \cite{durand2003} zum LogLog-Algorithmus und schließlich von Flajolet et al. \cite{flajolet2007} zum Hyperloglog-Algorithmus weiterentwickelt wurde.
+Der HyperLogLog-Algorithmus basiert auf dem Flajolet-Martin-Algorithmus, welcher erst von Durand und Flajolet \cite{durand2003} zum LogLog-Algorithmus und schließlich von Flajolet et al. \cite{flajolet2007} zum HyperLogLog-Algorithmus weiterentwickelt wurde.
 Der Algorithmus dient der approximativen Lösung des sog. Count-Distinct-Problems, bei dem die es die Anzahl unterschiedlicher, auftretender Elemente zu zählen gilt.
 Da die naive Lösung dieses Problems, die Speicherung in einer Menge und das Auslesen deren Länge, bei großen Datenmengen zu einem stetig steigenden Speicherplatzbedarf führt, ist eine speicherplatzeffiziente Lösung mit annähernd korrektem Ergebnis vorzuziehen.
 
