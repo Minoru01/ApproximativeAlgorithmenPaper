@@ -1,55 +1,22 @@
 \section{Vorstellung: Algorithmen}
-In diesem Kapitel werden approximative Algorithmen vorgestellt, 
-die in der Streamverarbeitung nutzbringend eingesetzt werden können.
 
-\section{HyperLogLog}
+Approximative Algorithmen dienen jeweils sehr spezifischen Aufgaben, die in einem großen Datensatz oder Stream gelöst werden können.
+Da Probleme wie das Zählen unterschiedlicher Elemente oder das bestimmen eines häufigsten Elements mathematisch sehr unterschiedliche Herangehensweisen erfordern, können diese Algorithmen also nur für ein spezielles Aufgabengebiet eingesetzt werden.
+Hier sollen einige Algorithmen mit unterschiedlichen Einsatzgebieten und deren Funktionsweisen grob vorgestellt werden, um einen Überblick über verschiedene Aufgabenbereiche und deren Lösungen zu bieten.
 
-Der Hyperloglog-Algorithmus basiert auf dem Flajolet-Martin-Algorithmus, welcher erst von Durand und Flajolet \cite{durand2003} zum LogLog-Algorithmus und schließlich von Flajolet et al. \cite{flajolet2007} zum Hyperloglog-Algorithmus weiterentwickelt wurde.
+\subsection{HyperLogLog}
+
+Der HyperLogLog-Algorithmus basiert auf dem Flajolet-Martin-Algorithmus, welcher erst von Durand und Flajolet \cite{durand2003} zum LogLog-Algorithmus und schließlich von Flajolet et al. \cite{flajolet2007} zum HyperLogLog-Algorithmus weiterentwickelt wurde.
 Der Algorithmus dient der approximativen Lösung des sog. Count-Distinct-Problems, bei dem die es die Anzahl unterschiedlicher, auftretender Elemente zu zählen gilt.
 Da die naive Lösung dieses Problems, die Speicherung in einer Menge und das Auslesen deren Länge, bei großen Datenmengen zu einem stetig steigenden Speicherplatzbedarf führt, ist eine speicherplatzeffiziente Lösung mit annähernd korrektem Ergebnis vorzuziehen.
 
 Dieses Problem wurde schon in der ersten Implementierung dieses Algorithmus gelöst und seit dem stetig weiterentwickelt.
 So konnte der Speicherbedarf bei der Weiterentwicklung des LogLog- zum HyperLogLog-Algorithmus um 64\% gesenkt werden, ohne dabei Präzision des Ergebnisses einzubüßen \cite{flajolet2007}.
 
-Der HyperLogLog-Algorithmus wird in \autoref{sec:proof-of-concept} detaillierter behandelt.
-
-
-\subsection{Count-Min-Sketch}
-Der Count-Min-Sketch ist ein Algorithmus von Cormode und Muthukrishnan \cite{cormode2003}, 
-mit dem die Häufigkeit aller Elemente in einem Stream Approximativ ermittelt werden kann. 
-Die Häufigkeiten werden dabei in ein kleines Array geschrieben, 
-wodurch die benötigte Speichergröße für die Datenmenge stark komprimiert, 
-aber dafür etwas ungenauer wird. 
-Der Algorithmus weist für Häufige Elemente eine hohe Genauigkeit auf 
-und wird deshalb für die Ermittlung der Häufigkeit von Elementen genutzt, 
-von denen erwartet wird, dass sie Oft in dem Stream enthalten sind.
-
-Um die Häufigkeit eines Elements zu ermitteln 
-nutzt der Algorithmus ein Array mit mehreren Zeilen 
-und eben so vielen verschiedenen Hashfunktionen. 
-Jedes Element des Streams wird dann mit den Hashfunktionen gehasht 
-und in die der Hashfunktion zugeteilte Zeile eingetragen. 
-Wird ein Hashwert in einer Zeile mehrfach hinzugefügt, 
-erhöht sich dann ein Counter für diesen Hashwert. 
-Es kann passieren, dass für verschiedene Werte der selbe Hashwert erzeugt 
-und so auch den gleichen Counter erhöht wird. 
-Durch dieses Verhalten kann für einen einzelnen Hashwert 
-schlussendlich nicht mehr unterschieden werden, 
-wie hoch der Count für ein Element unter diesem Hash ist. 
-Es ergibt sich jedoch, dass der Hashwert des Elements, dessen Count am geringsten ist, 
-durch die wenigsten Hashwerte anderer Elemente erhöht wurde. 
-Somit ist der Hashwert des Elements mit dem geringsten Count der, 
-der dem tatsächlichen Wert am nähsten kommt. \cite{cormode2017}
-
-Der Aufbau des Algorithmus ähnelt dem des Bloom Filter Algorithmus sehr \cite{cormode2017}. 
-Das Array das für den Bloom Filter ALgorithmus verwendet wird 
-hat jedoch nur eine Zeile in die die gehasten Werte aller Hashfunktionen eingetragen werden \cite{cormode2017}.
-
-Durch die Erhöhung der Menge verschiedener Hashfunktionen kann die Abweichung des Counts reduziert werden. 
-Somit lässt sich durch erhöhen oder reduzieren der Menge an Hashfunktionen 
-der Count-Min-Sketch dem Bedürfnis von Präzision oder Geschwindigkeit anpassen.
+Die Funktionsweise des HyperLogLog-Algorithmus wird in \autoref{sec:proof-of-concept-funktionsweise} detaillierter behandelt und deswegen hier nicht weiter beschrieben.
 
 \subsection{T-Digest}
+
 Der T-Digest ist ein von Ted Dunning entwickelter Algorithmus zum approximieren der Verteilung von Daten mit Quantilen.
 
 Quantile sind Schwellenwerte auf einer Verteilungsfunktion, die für einen gegebenen Prozentsatz angeben, welche Werte unterhalb dieses Schwellenwerts liegen.
@@ -86,7 +53,45 @@ Gleiches gilt für das identifizieren eines Quantils, was in beiden Fällen in d
 Ein weiterer Vorteil des T-Digest-Algorithmus ist, dass die Daten mehrerer Digests einfach verbunden werden können, solange man die Gewichte der Schwerpunkte beachtet \cite{dunning2019}.
 Dies ist zum Beispiel nützlich, wenn man einen Median aus mehreren, großen Datensätzen identifizieren möchte, da es hierfür nicht einfach reicht, den Median für jeden Datensatz einzeln zu identifizieren und aus der Liste der Ergebnisse einen neuen Median zu ziehen.
 
+
+\subsection{Count-Min-Sketch}
+
+Der Count-Min-Sketch ist ein Algorithmus von Cormode und Muthukrishnan \cite{cormode2003}, 
+mit dem die Häufigkeit aller Elemente in einem Stream Approximativ ermittelt werden kann. 
+Die Häufigkeiten werden dabei in ein kleines Array geschrieben, 
+wodurch die benötigte Speichergröße für die Datenmenge stark komprimiert, 
+aber dafür etwas ungenauer wird. 
+Der Algorithmus weist für Häufige Elemente eine hohe Genauigkeit auf 
+und wird deshalb für die Ermittlung der Häufigkeit von Elementen genutzt, 
+von denen erwartet wird, dass sie Oft in dem Stream enthalten sind.
+
+Um die Häufigkeit eines Elements zu ermitteln 
+nutzt der Algorithmus ein Array mit mehreren Zeilen 
+und eben so vielen verschiedenen Hashfunktionen. 
+Jedes Element des Streams wird dann mit den Hashfunktionen gehasht 
+und in die der Hashfunktion zugeteilte Zeile eingetragen. 
+Wird ein Hashwert in einer Zeile mehrfach hinzugefügt, 
+erhöht sich dann ein Counter für diesen Hashwert. 
+Es kann passieren, dass für verschiedene Werte der selbe Hashwert erzeugt 
+und so auch den gleichen Counter erhöht wird. 
+Durch dieses Verhalten kann für einen einzelnen Hashwert 
+schlussendlich nicht mehr unterschieden werden, 
+wie hoch der Count für ein Element unter diesem Hash ist. 
+Es ergibt sich jedoch, dass der Hashwert des Elements, dessen Count am geringsten ist, 
+durch die wenigsten Hashwerte anderer Elemente erhöht wurde. 
+Somit ist der Hashwert des Elements mit dem geringsten Count der, 
+der dem tatsächlichen Wert am nähsten kommt. \cite{cormode2017}
+
+Der Aufbau des Algorithmus ähnelt dem des Bloom Filter Algorithmus sehr \cite{cormode2017}. 
+Das Array das für den Bloom Filter ALgorithmus verwendet wird 
+hat jedoch nur eine Zeile in die die gehasten Werte aller Hashfunktionen eingetragen werden \cite{cormode2017}.
+
+Durch die Erhöhung der Menge verschiedener Hashfunktionen kann die Abweichung des Counts reduziert werden. 
+Somit lässt sich durch erhöhen oder reduzieren der Menge an Hashfunktionen 
+der Count-Min-Sketch dem Bedürfnis von Präzision oder Geschwindigkeit anpassen.
+
 \subsection{StreamApprox}
+
 StreamApprox ist ein Sampling Algorithmus der dafür entwickelt wurde, 
 die Datenmenge eines Streams auf eine bestimmte Größe zu limitieren, 
 indem er nur einige der Daten des Streams zur weiterreicht. 

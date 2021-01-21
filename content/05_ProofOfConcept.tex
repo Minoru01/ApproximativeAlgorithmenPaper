@@ -1,5 +1,4 @@
 \section{Proof of Concept}
-\label{sec:proof-of-concept}
 
 Zum Testen eines approximativen Algorithmus haben wir uns für das Zählen unterschiedlicher Elemente mithilfe des HyperLogLog-Algorithmus entschieden.
 Als Datenquelle haben wir die Änderungen von Wikipedia-Artikeln gewählt, um so zu approximieren, wie viele unterschiedliche Artikel täglich geändert werden.
@@ -17,6 +16,7 @@ Der Stream wurde über einen Zeitraum von 24~Stunden beobachtet und die Daten mi
 Anschließend wurden Informationen zum Speicherverbrauch und der Genauigkeit der beiden HyperLogLog-Implementierungen analysiert.
 
 \subsection{Funktionsweise und Implementierung}
+\label{sec:proof-of-concept-funktionsweise}
 
 Beim HyperLogLog-Algorithmus werden eingehende Daten mit einer Hash-Funktion in eine zufällige Reihe aus Bits $\{0, 1\}^\infty$ umgewandelt.
 Abhängig von der gewünschten Genauigkeit wird dann eine bestimmte Anzahl $b$ Bits weggenommen.
