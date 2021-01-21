@@ -12,6 +12,42 @@ Durch die überwachung des Datenverkehrs auf Basis von Kardinalitäten dieser Ve
 
 \todo[inline]{vielleicht anpassen}
 
+
+\subsection{Count-Min-Sketch}
+Der Count-Min-Sketch ist ein Algorithmus von Cormode und Muthukrishnan \cite{cormode2003}, 
+mit dem die Häufigkeit aller Elemente in einem Stream Approximativ ermittelt werden kann. 
+Die Häufigkeiten werden dabei in ein kleines Array geschrieben, 
+wodurch die benötigte Speichergröße für die Datenmenge stark komprimiert, 
+aber dafür etwas ungenauer wird. 
+Der Algorithmus weist für Häufige Elemente eine hohe Genauigkeit auf 
+und wird deshalb für die Ermittlung der Häufigkeit von Elementen genutzt, 
+von denen erwartet wird, dass sie Oft in dem Stream enthalten sind.
+
+Um die Häufigkeit eines Elements zu ermitteln 
+nutzt der Algorithmus ein Array mit mehreren Zeilen 
+und eben so vielen verschiedenen Hashfunktionen. 
+Jedes Element des Streams wird dann mit den Hashfunktionen gehasht 
+und in die der Hashfunktion zugeteilte Zeile eingetragen. 
+Wird ein Hashwert in einer Zeile mehrfach hinzugefügt, 
+erhöht sich dann ein Counter für diesen Hashwert. 
+Es kann passieren, dass für verschiedene Werte der selbe Hashwert erzeugt 
+und so auch den gleichen Counter erhöht wird. 
+Durch dieses Verhalten kann für einen einzelnen Hashwert 
+schlussendlich nicht mehr unterschieden werden, 
+wie hoch der Count für ein Element unter diesem Hash ist. 
+Es ergibt sich jedoch, dass der Hashwert des Elements, dessen Count am geringsten ist, 
+durch die wenigsten Hashwerte anderer Elemente erhöht wurde. 
+Somit ist der Hashwert des Elements mit dem geringsten Count der, 
+der dem tatsächlichen Wert am nähsten kommt. \cite{cormode2017}
+
+Der Aufbau des Algorithmus ähnelt dem des Bloom Filter Algorithmus sehr \cite{cormode2017}. 
+Das Array das für den Bloom Filter ALgorithmus verwendet wird 
+hat jedoch nur eine Zeile in die die gehasten Werte aller Hashfunktionen eingetragen werden \cite{cormode2017}.
+
+Durch die Erhöhung der Menge verschiedener Hashfunktionen kann die Abweichung des Counts reduziert werden. 
+Somit lässt sich durch erhöhen oder reduzieren der Menge an Hashfunktionen 
+der Count-Min-Sketch dem Bedürfnis von Präzision oder Geschwindigkeit anpassen.
+
 \subsection{T-Digest}
 Der T-Digest ist ein von Ted Dunning entwickelter Algorithmus zum approximieren der Verteilung von Daten mit Quantilen.
 

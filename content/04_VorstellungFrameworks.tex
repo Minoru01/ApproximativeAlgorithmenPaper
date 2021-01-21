@@ -2,25 +2,21 @@
 Die vorgestellten Algorithmen und einige weitere approximative Algorithmen wurden bereits in einige Frameworks und Bibliotheken eingebunden. Nachfolgend werden einige dieser vorgestellt.
 
 \subsection{Apache Spark}
-Das Apache Spark Framework bietet eine Bibliotheke für die Verarbeitung von Streams in Java, Scala und Python. 
-In diesem Framework stehen seit der Version 2.0 unter anderem auch die Methoden \texttt{approxCountDistinct} 
+Das Apache Spark Framework bietet Bibliotheken für Streaming, SQL, Machine Learning und Graphverarbeitung in Java, Scala und Python an. 
+Für SQL-Anfragen stehen dabei seit der Version 2.0 unter anderem auch die Methoden  \texttt{approxCountDistinct} 
 und \texttt{approxQuantile} zur Verfügung. 
 \texttt{approxCountDistinct} nutzt den HyperLogLog++ Algorithmus, 
 um eine ungefähre Lösung für das ihm gegebene Problem zu liefern \cite{hunter2016}.
 Die Methode kann die ungefähre Anzahl unterschiedlicher Worte für die Daten eines Streams ermitteln.
 \texttt{approxQuantile} nutzt den Greenwald-Khanna Algorithmus \cite{greenwald2001} 
 und kann ein ungefährer Wert zu einer bestimmten Quantile ausgeben.
+In der Streaming Bibliothek werden Implementierungen des Bloom Filters für contains-Abfragen und Count-Min Sketch für Abfragen der Häufigkeiten von Elementen angeboten.
 
 %https://spark.apache.org/docs/2.1.0/api/R/approxQuantile.html
 %http://dx.doi.org/10.1145/375663.375670
 
-
-
-\subsection{PDSA: Probabilistic Data Structures and Algorithms}
-
-
 \subsection{Apache DataSketches}
-Apache DataSketches ist eine Biblitheke für die Sprachen Java, C++ und Python die stochasitische Streamingalgorithmen, 
+Apache DataSketches ist eine Bibliothek für die Sprachen Java, C++ und Python die stochasitische Streamingalgorithmen, 
 auch Sketches genannt anbietet. 
 Diese Sketches können auch sehr große Mengen an Daten aus Streams verarbeiten 
 und liefern dabei approximative Antworten. 
@@ -37,8 +33,8 @@ Die Apache DataSketches Bibliothek ist für die Sprachen Java C++ und Python ver
 
 \subsection{stream-lib}
 Die öffentliche stream-lib Bibliotheke bietet für Java unter anderem die approximativen Algorithmen LogLog, 
-HyperLogLog und HyperLogLog++ für die Berechnung von Kardinalitäten in Streams, 
-sowie die Algorithmen T-Digest und Q-Digest für die Berechnung von Quantilen in Streams. 
+HyperLogLog und HyperLogLog++ für die Bestimmung von Kardinalitäten in Streams, 
+sowie die Algorithmen T-Digest und Q-Digest für die Bestimmung von Quantilen in Streams. 
 Das Github-Projekt auf dem die Bibliotheke basiert wurde archiviert, 
 es ist also warscheinlich, dass das Projekt von Seiten des Entwicklerteams nicht weiterentwickelt wird. 
 %https://github.com/addthis/stream-lib
