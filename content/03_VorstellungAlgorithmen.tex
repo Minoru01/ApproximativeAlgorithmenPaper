@@ -3,14 +3,15 @@ In diesem Kapitel werden approximative Algorithmen vorgestellt,
 die in der Streamverarbeitung nutzbringend eingesetzt werden können.
 
 \section{HyperLogLog}
-\todo[inline]{erklärung hyperloglog}
-hier wird der hyperloglog vorgestellt.
-\subsection{Beispiele}
-Der hyperloglog-Algorithmus wurde ursprünglich zur Aufspürung von Würmern und Computerviren entwickelt. 
-Würmer und Viren öffnen für gewöhnlich eine große Anzahl an Verbindungen durch die sie versuchen einzudringen. 
-Durch die überwachung des Datenverkehrs auf Basis von Kardinalitäten dieser Verbindungen konnten diese aufgespürt werden. \cite{flajolet2007}
 
-\todo[inline]{vielleicht anpassen}
+Der Hyperloglog-Algorithmus basiert auf dem Flajolet-Martin-Algorithmus, welcher erst von Durand und Flajolet \cite{durand2003} zum LogLog-Algorithmus und schließlich von Flajolet et al. \cite{flajolet2007} zum Hyperloglog-Algorithmus weiterentwickelt wurde.
+Der Algorithmus dient der approximativen Lösung des sog. Count-Distinct-Problems, bei dem die es die Anzahl unterschiedlicher, auftretender Elemente zu zählen gilt.
+Da die naive Lösung dieses Problems, die Speicherung in einer Menge und das Auslesen deren Länge, bei großen Datenmengen zu einem stetig steigenden Speicherplatzbedarf führt, ist eine speicherplatzeffiziente Lösung mit annähernd korrektem Ergebnis vorzuziehen.
+
+Dieses Problem wurde schon in der ersten Implementierung dieses Algorithmus gelöst und seit dem stetig weiterentwickelt.
+So konnte der Speicherbedarf bei der Weiterentwicklung des LogLog- zum HyperLogLog-Algorithmus um 64\% gesenkt werden, ohne dabei Präzision des Ergebnisses einzubüßen \cite{flajolet2007}.
+
+Der HyperLogLog-Algorithmus wird in \autoref{sec:proof-of-concept} detaillierter behandelt.
 
 \subsection{T-Digest}
 Der T-Digest ist ein von Ted Dunning entwickelter Algorithmus zum approximieren der Verteilung von Daten mit Quantilen.
@@ -24,6 +25,17 @@ Beim T-Digest wird die Verteilung der Daten auf wichtige Punkte, in deren Umgebu
 Diesen Schwerpunkten (engl. Centroids) wird ein Gewicht zugewiesen, woraus sich später eine gute Approximation der Verteilung ableiten lässt.
 Laut Dunning \cite{dunning2015} ist hierbei eine höhere Präzision vor Allem in den Randbereichen der Verteilung von besonderer Wichtigkeit.
 So sei eine Abweichung von etwa 0,5\% im Bereich des Medians in Ordnung, in Extremfällen wie dem 99,99\%-Quantil jedoch nicht mehr, da es hier darauf ankommt, einen sehr kleinen Bereich zu identifizieren.
+Die Verteilung der Gewichte auf Schwerpunkte und das Auslassen von Punkten ist in \autoref{fig:t-digest} dargestellt.
+In diesem Beispiel wurden 100\,000 zufällige Zahlen im Bereich von 1 bis 1\,000, deren Verteilung links zu sehen ist, durch den T-Digest Algorithmus auf Schwerpunkte reduziert und mit einem Gewicht versehen.
+Hierbei bleiben die Randbereiche größtenteils erhalten und bieten so die höchste Präzision, während zur Mitte hin die Cluster, welche zu einem stärker gewichteten Schwerpunkt zusammengefasst werden, größer werden.
+
+\begin{figure}[b]
+	\centering
+	\includegraphics[width=.49\linewidth]{images/t_digest_data.png}
+	\includegraphics[width=.49\linewidth]{images/t_digest_sorted.png}
+	\caption{Schwerpunktverteilung durch T-Digest}
+	\label{fig:t-digest}
+\end{figure}
 
 In einem Test, in dem eine Implementierung des T-Digest-Algorithmus mit einer einfachen, sortierten Liste verglichen wurde, hat sich die Präzision des T-Digest als sehr gut herausgestellt.
 Es wurden 100\,000 verschiedene, zufällige Zahlen von 1 bis 1\,000 in beide Objekte eingetragen, wobei anschließend je der Median, sowie das 99,99\%-Quantil geprüft wurden.
@@ -37,8 +49,6 @@ Gleiches gilt für das identifizieren eines Quantils, was in beiden Fällen in d
 
 Ein weiterer Vorteil des T-Digest-Algorithmus ist, dass die Daten mehrerer Digests einfach verbunden werden können, solange man die Gewichte der Schwerpunkte beachtet \cite{dunning2019}.
 Dies ist zum Beispiel nützlich, wenn man einen Median aus mehreren, großen Datensätzen identifizieren möchte, da es hierfür nicht einfach reicht, den Median für jeden Datensatz einzeln zu identifizieren und aus der Liste der Ergebnisse einen neuen Median zu ziehen.
-
-
 
 \subsection{StreamApprox}
 StreamApprox ist ein Sampling Algorithmus der dafür entwickelt wurde, 

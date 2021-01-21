@@ -1,4 +1,5 @@
 \section{Proof of Concept}
+\label{sec:proof-of-concept}
 
 Zum Testen eines approximativen Algorithmus haben wir uns für das Zählen unterschiedlicher Elemente mithilfe des HyperLogLog-Algorithmus entschieden.
 Als Datenquelle haben wir die Änderungen von Wikipedia-Artikeln gewählt, um so zu approximieren, wie viele unterschiedliche Artikel täglich geändert werden.
@@ -49,8 +50,8 @@ Dies führt zu $m = 2^{14} = 16\,384$ benötigten Registern und somit einem maxi
 \subsection{Ergebnis der Streambeobachtung}
 
 Bei der Beobachtung ergab im Bereich bis etwa 50\,000 einzigartiger Einträge eine starke Abweichung des selbst implementierten HyperLogLog-Algorithmus (siehe \autoref{fig:hll-count}).
-So erreichte dieser die gewünschte Genauigkeit von 99\% erstmals bei 49\,265 Einträgen und hielt sie konstant erst ab 49\,932.
-Die Implementierung des HyperLogLog von Evseenko \cite{evseenko2018} überschritt die Abweichung von 1\% über den gesamten Verlauf nur 356 mal.
+So erreichte dieser die gewünschte Genauigkeit von 99\% erst bei 44\,162 einzigartigen Einträgen.
+Ab diesem Eintrag verhielten sich beide Implementierungen, die eigene und die von Evseenko \cite{evseenko2018}, sehr ähnlich, jedoch erst ab dem 398\,115. einzigartigen Eintrag vollkommen identisch.
 
 \begin{figure*}[t]
 	\centering
