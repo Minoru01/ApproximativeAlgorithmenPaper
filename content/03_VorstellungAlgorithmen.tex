@@ -67,13 +67,15 @@ von denen erwartet wird, dass sie oft in dem Stream enthalten sind.
 
 Um die Häufigkeit eines Elements zu ermitteln 
 nutzt der Algorithmus ein Array mit mehreren Zeilen 
-und ebenso viele verschiedene Hash-Funktionen. 
-Jedes Element des Streams wird dann mit den Hash-Funktionen gehasht 
+und ebenso viele verschiedene Hash-Funktionen.
+Der Zusammenhang zwischen Hash-Funktionen und den Zeilen durch die einzelnen Reihen in \autoref{fig:count-min-sketch} dargestellt. 
+Jedes Element des Streams wird mit den Hash-Funktionen gehasht 
 und in die der Hash-Funktion zugeteilte Zeile eingetragen. 
-Wird ein Hash-Wert in einer Zeile mehrfach hinzugefügt, 
-erhöht sich dann ein Counter für diesen Hash-Wert. 
+Wird ein Hash-Wert in einer Zeile mehrfach hinzugefügt -- egal ob durch den selben oder einen anderen Wert -- 
+erhöht sich ein Counter für diesen Hash-Wert. 
+Diese Erhöhung ist in \autoref{fig:count-min-sketch} durch ein +1 in einer Zelle für den entsprechenden Hash-Wert dargestellt.
 Es kann passieren, dass für verschiedene Werte der selbe Hash-Wert erzeugt 
-und so auch der gleiche Counter erhöht wird. 
+und so auch der gleiche Counter erhöht wird.
 Durch dieses Verhalten kann für einen einzelnen Hash-Wert 
 schlussendlich nicht mehr unterschieden werden, 
 wie hoch die Häufigkeit eines Elements unter diesem Hash-Wert ist. 
@@ -81,6 +83,50 @@ Es ergibt sich jedoch, dass der Hash-Wert des Elements, dessen Count am geringst
 durch die wenigsten Hash-Werte anderer Elemente erhöht wurde. 
 Somit ist der Hash-Wert des Elements mit dem geringsten Count der, 
 der dem tatsächlichen Wert am nächsten kommt \cite{cormode2017}.
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}[
+		x=1cm,
+		y=1cm,
+		hashstyle/.style={draw, minimum height=.75cm, minimum width=.75cm},
+		cellstyle/.style={draw, minimum height=.6cm, minimum width=.6cm, font=\footnotesize}
+	]
+		\node (stream) at (-3, 1) {Stream};
+		
+		\node[hashstyle] (h1) at (0, 2) {h\textsubscript{1}};
+		\node[hashstyle] (h2) at (0, 1) {h\textsubscript{2}};
+		\node[hashstyle] (h3) at (0, 0) {h\textsubscript{3}};
+		
+		\node[cellstyle] (1-1) at (2, 2) {};
+		\node[cellstyle] (1-2) at (2.6, 2) {};
+		\node[cellstyle] (1-3) at (3.2, 2) {+1};
+		\node[cellstyle] (1-4) at (3.8, 2) {};
+		\node[cellstyle] (1-5) at (4.4, 2) {};
+		
+		\node[cellstyle] (2-1) at (2, 1) {+1};
+		\node[cellstyle] (2-2) at (2.6, 1) {};
+		\node[cellstyle] (2-3) at (3.2, 1) {};
+		\node[cellstyle] (2-4) at (3.8, 1) {};
+		\node[cellstyle] (2-5) at (4.4, 1) {};
+		
+		\node[cellstyle] (3-1) at (2, 0) {};
+		\node[cellstyle] (3-2) at (2.6, 0) {};
+		\node[cellstyle] (3-3) at (3.2, 0) {};
+		\node[cellstyle] (3-4) at (3.8, 0) {+1};
+		\node[cellstyle] (3-5) at (4.4, 0) {};
+		
+		\draw[-latex] (stream.east) -- +(1, 0) -- +(1, 1) -- (h1.west);
+		\draw[-latex] (stream.east) -- (h2.west);
+		\draw[-latex] (stream.east) -- +(1, 0) -- +(1, -1) -- (h3.west);
+		
+		\draw[-latex] (h1.east) -- (1-3.west) -- +(0.1, 0);
+		\draw[-latex] (h2.east) -- (2-1.west) -- +(0.1, 0);
+		\draw[-latex] (h3.east) -- (3-4.west) -- +(0.1, 0);
+	\end{tikzpicture}
+	\caption{Zählvorgang im Array des Count-Min-Sketch}
+	\label{fig:count-min-sketch}
+\end{figure}
 
 Der Aufbau des Algorithmus ähnelt dem des Bloom Filter Algorithmus \cite{cormode2017}. 
 Das Array, das für den Bloom Filter Algorithmus verwendet wird, 

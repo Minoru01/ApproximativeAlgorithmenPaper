@@ -19,6 +19,14 @@ Anschließend wurden Informationen zum Speicherverbrauch und der Genauigkeit der
 \subsection{Funktionsweise und Implementierung}
 \label{sec:proof-of-concept-funktionsweise}
 
+\begin{figure*}[b]
+	\centering
+	\includegraphics[width=.49\textwidth]{images/hll_count_1.png}
+	\includegraphics[width=.49\textwidth]{images/hll_count_2.png}
+	\caption{Genauigkeit naiver Implementierung gegenüber HyperLogLog}
+	\label{fig:hll-count}
+\end{figure*}
+
 Beim HyperLogLog-Algorithmus werden eingehende Daten mit einer Hash-Funktion in eine zufällige Reihe aus Bits $\{0, 1\}^\infty$ umgewandelt.
 Abhängig von der gewünschten Genauigkeit wird dann eine bestimmte Anzahl $b$ Bits weggenommen.
 Diese Bits ergeben die binäre Speicheradresse eines Registers.
@@ -48,14 +56,6 @@ Bei der Beobachtung ergab sich im Bereich bis etwa 50\,000 einzigartiger Einträ
 So erreichte dieser die gewünschte Genauigkeit von 99\% erst bei 44\,162 einzigartigen Einträgen.
 Ab diesem Eintrag verhielten sich beide Implementierungen, die eigene und die von Evseenko \cite{evseenko2018}, sehr ähnlich, jedoch erst ab dem 398\,115. einzigartigen Eintrag vollkommen identisch.
 
-\begin{figure*}[t]
-	\centering
-	\includegraphics[width=.49\textwidth]{images/hll_count_1.png}
-	\includegraphics[width=.49\textwidth]{images/hll_count_2.png}
-	\caption{Genauigkeit naiver Implementierung gegenüber HyperLogLog}
-	\label{fig:hll-count}
-\end{figure*}
-
 Diese Abweichung entstammt einem Bias des HyperLogLog-Algorithmus, weshalb niedrige Kardinalitäten stark überschätzt werden \cite{heule2013}.
 Um diesem Problem entgegenzuwirken, kann eine Linear-Counting-Funktion unterhalb einer gewissen Schwelle eingesetzt werden, was auch in der bezogenen Implementierung verwendet wird \cite{evseenko2018}.
 
@@ -65,7 +65,7 @@ Zu beachten ist hierbei die logarithmische Skala der Abbildung.
 So steigt der Speicherbedarf des Python-Sets schon beim Einfügen des 309.
 Elements auf das Doppelte des HyperLogLog-Speicherbedarfs und bis zum Ende auf das Zehnfache.
 
-\begin{figure}[b!]
+\begin{figure}[t]
 	\centering
 	\includegraphics[width=0.49\textwidth]{images/hll_memory.png}
 	\caption{Speicherbedarf naiver Implementierung gegenüber HyperLogLog}

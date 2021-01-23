@@ -1,14 +1,24 @@
 \section{Einleitung}
-Approximative Algorithmen sind Algorithmen die für ein Problem eine Lösung durch Annäherung finden. Die Lösung kann hierbei von der idealen Lösung abweichen. Dieses Verhalten dient häufig dazu, NP-Schwere Probleme in polynomialer Zeit zu lösen, oder den benötigten Speicherplatz möglichst gering zu halten.
-In der Praxis haben sich diese Algorithmen bewährt, weil für verschiedene Anwendungsfälle die Präzision des Ergebnisses weniger wichtig ist als die Geschwindigkeit oder der Speicherplatzverbrauch des Algorithmus der das Ergebnis liefern soll.
 
-Neben den aproximativen Algorithmen deren Anwendungsbereich sich nicht nur auf die Nutzung in Streams beschränkt gibt es die sogenannten Sketch Algorithmen, die eine Unterklasse der Streaming Algorithmen bilden. Diese sind speziell für die Anwendung auf Streams ausgelegt und einige Sketches bieten ähnlich wie approximative Algorithmen keine absoluten Ergebnisse. Diese Sketches liefern hierbei eine Lösung die auf einer Wahrscheinlichkeitsberechnung basiert.
-Sketches haben dabei gegenüber einer idealen Lösung nach \cite{apachedatasketches} die folgenden Vorteile:
+Approximative Algorithmen bieten Näherungslösungen für sonst nur ineffizient lösbare Probleme.
+So kann zum Beispiel durch leichte Einbußen der Genauigkeit der benötigte Speicherplatz oder die Geschwindigkeit der Lösung oft drastisch reduziert werden.
+Gerade in großen oder theoretisch gar endlosen Datenmengen wie in Streams ist eine exakte Lösung durch Speicherung aller Daten nicht realistisch.
+Da mithilfe eines Annäherungswerts so trotzdem eine etwaige Übersicht über die Daten gewonnen werden kann, hat sich diese Herangehensweise in der Praxis bewährt.
+Da im Fall der permanenten Beobachtung von Streams, anders als bei endlichen Datensätzen, der Annäherungsvorgang nicht abgeschlossen wird, ist es außerdem wichtig, dass jederzeit Ergebnisse abgerufen werden können, die auch zu jedem Zeitpunkt annähernd richtig sein sollten.
+
+Neben den aproximativen Algorithmen deren Anwendungsbereich sich nicht nur auf die Nutzung in Streams beschränkt gibt es die sogenannten Sketch Algorithmen, die eine Unterklasse der Streaming Algorithmen bilden.
+Wie auch die approximativen Algorithmen bieten diese Näherungslösungen, basierend auf Wahrscheinlichkeitsberechnungen für unterschiedliche Probleme an.
+Apache \cite{apachedatasketches} definiert für diese Sketches folgende Vorteile, die jedoch ebenso für die meisten approximativen Algorithmen gelten:
+
 \begin{itemize}
-\item one-touch: Die Daten des Streams müssen nur ein mal betrachtet werden
-\item Kombinierbar: Die Ergebnisse aus mehrerer Streams können zusammengeführt werden
-\item Sublinearer Speicherbedarf: Der Speicherplatz für die Ausgabe skaliert nur sublinear mit der größe des Streams
-\item Bekannte Genauigkeit: Das Ergebnis muss nicht optimal sein, aber der Fehlerspielraum ist bekannt und kann gehandhabt werden.
+	\item One-Touch: Die Daten des Streams müssen nur ein mal betrachtet werden.
+	\item Kombinierbar: Die Ergebnisse mehrerer Streams können zusammengeführt werden.
+	\item Sublinearer Speicherbedarf: Der Speicherplatz für den Algorithmus skaliert nur sublinear mit der größe des Streams.
+	\item Bekannte Genauigkeit: Das Ergebnis muss nicht optimal sein, aber der Fehlerspielraum ist bekannt.
 \end{itemize}
 
-%https://datasketches.apache.org/docs/Background/SketchOrigins.html
+In diesem Paper soll eine Übersicht über einige approximative Algorithmen geliefert werden, die eine hohe Relevanz bei der Betrachtung von Streams aufweisen.
+Es wird hierbei auf die unterschiedlichen Einsatzbereiche und die grobe Funktionsweise der Algorithmen eingegangen.
+Außerdem werden einige Bibliotheken und Frameworks sowie die von diesen implementierten approximativen Algorithmen aufgezeigt.
+Im Anschluss wird ein tieferer Einblick in den HyperLogLog-Algorithmus im Rahmen eines Proof of Concept geliefert, einem Algorithmus zum Schätzen der Anzahl unterschiedlicher, auftretender Elemente.
+Abschließend wird eine Bewertung der Relevanz und der Einsatzbereiche von approximativen Algorithmen gegeben.
