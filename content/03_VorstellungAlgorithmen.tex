@@ -67,27 +67,27 @@ von denen erwartet wird, dass sie oft in dem Stream enthalten sind.
 
 Um die Häufigkeit eines Elements zu ermitteln 
 nutzt der Algorithmus ein Array mit mehreren Zeilen 
-und ebenso viele verschiedene Hashfunktionen. 
-Jedes Element des Streams wird dann mit den Hashfunktionen gehasht 
-und in die der Hashfunktion zugeteilte Zeile eingetragen. 
-Wird ein Hashwert in einer Zeile mehrfach hinzugefügt, 
-erhöht sich dann ein Counter für diesen Hashwert. 
-Es kann passieren, dass für verschiedene Werte der selbe Hashwert erzeugt 
+und ebenso viele verschiedene Hash-Funktionen. 
+Jedes Element des Streams wird dann mit den Hash-Funktionen gehasht 
+und in die der Hash-Funktion zugeteilte Zeile eingetragen. 
+Wird ein Hash-Wert in einer Zeile mehrfach hinzugefügt, 
+erhöht sich dann ein Counter für diesen Hash-Wert. 
+Es kann passieren, dass für verschiedene Werte der selbe Hash-Wert erzeugt 
 und so auch der gleiche Counter erhöht wird. 
-Durch dieses Verhalten kann für einen einzelnen Hashwert 
+Durch dieses Verhalten kann für einen einzelnen Hash-Wert 
 schlussendlich nicht mehr unterschieden werden, 
-wie hoch die Häufigkeit eines Elements unter diesem Hashwert ist. 
-Es ergibt sich jedoch, dass der Hashwert des Elements, dessen Count am geringsten ist, 
-durch die wenigsten Hashwerte anderer Elemente erhöht wurde. 
-Somit ist der Hashwert des Elements mit dem geringsten Count der, 
+wie hoch die Häufigkeit eines Elements unter diesem Hash-Wert ist. 
+Es ergibt sich jedoch, dass der Hash-Wert des Elements, dessen Count am geringsten ist, 
+durch die wenigsten Hash-Werte anderer Elemente erhöht wurde. 
+Somit ist der Hash-Wert des Elements mit dem geringsten Count der, 
 der dem tatsächlichen Wert am nächsten kommt \cite{cormode2017}.
 
 Der Aufbau des Algorithmus ähnelt dem des Bloom Filter Algorithmus \cite{cormode2017}. 
 Das Array, das für den Bloom Filter Algorithmus verwendet wird, 
-hat jedoch nur eine Zeile in die die gehashten Werte aller Hashfunktionen eingetragen werden \cite{cormode2017}.
+hat jedoch nur eine Zeile in die die gehashten Werte aller Hash-Funktionen eingetragen werden \cite{cormode2017}.
 
-Durch die Erhöhung der Menge verschiedener Hashfunktionen kann die Abweichung des Counts reduziert werden. 
-Somit lässt sich durch Erhöhen oder Reduzieren der Menge an Hashfunktionen 
+Durch die Erhöhung der Menge verschiedener Hash-Funktionen kann die Abweichung des Counts reduziert werden. 
+Somit lässt sich durch Erhöhen oder Reduzieren der Menge an Hash-Funktionen 
 der Count-Min-Sketch dem Bedürfnis von Präzision oder Geschwindigkeit anpassen.
 
 \subsection{StreamApprox}

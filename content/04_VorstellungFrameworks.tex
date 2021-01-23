@@ -12,9 +12,6 @@ Die Methode kann die ungefähre Anzahl unterschiedlicher Worte für die Daten ei
 und kann einen ungefähren Wert zu einem bestimmten Quantil ausgeben.
 In der Streaming Bibliothek werden Implementierungen des Bloom Filters für contains-Abfragen und Count-Min Sketch für Abfragen der Häufigkeiten von Elementen angeboten.
 
-%https://spark.apache.org/docs/2.1.0/api/R/approxQuantile.html
-%http://dx.doi.org/10.1145/375663.375670
-
 \subsection{Apache DataSketches}
 Apache DataSketches ist eine Bibliothek für die Sprachen Java, C++ und Python die stochasitische Streamingalgorithmen, 
 auch Sketches genannt, anbietet. 
@@ -35,7 +32,6 @@ Die Apache DataSketches Bibliothek ist für die Sprachen Java, C++ und Python ve
 Die öffentliche Java-Bibliothek stream-lib bietet Implementierungen für die approximativen Algorithmen LogLog, 
 HyperLogLog und HyperLogLog++ für die Bestimmung von Kardinalitäten in Streams, 
 sowie die Algorithmen T-Digest und Q-Digest für die Bestimmung von Quantilen in Streams \cite{streamlib2019}. 
-Das Projekt befasst sich anders als Apache Spark speziell mit der Implementierung approximativer Algorithmen und ist minimalistischer umgesetzt als die Implementierungenden von Apache DataSketches. Deshalb bietet sich das Projekt besonders als Unterstützung beim einlernen in das Thema approximativer Algorithmen oder der Implementierung der angebotenen Algorithmen für eigene Projekte an.
+Das Projekt befasst sich, anders als Apache Spark, speziell mit der Implementierung approximativer Algorithmen und ist minimalistischer umgesetzt als die Implementierungen von Apache DataSketches. Deshalb bietet sich das Projekt besonders als Unterstützung beim Einlernen in das Thema approximative Algorithmen oder der Einbindung der angebotenen Algorithmen in eigene Projekte an.
 Das GitHub-Projekt, auf dem die Bibliothek basiert, wurde archiviert, 
 es ist also warscheinlich, dass das Projekt von Seiten des Entwicklerteams nicht weiterentwickelt wird.
-\todo[inline]{kontrollieren}
