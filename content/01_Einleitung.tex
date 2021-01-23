@@ -1,6 +1,6 @@
 \section{Einleitung}
-Approximative Algorithmen sind Algorithmen die für ein Problem eine Lösung durch Annäherung finden. Die Lösung kann hierbei von der idealen Lösung abweichen. Dieses Verhalten dient häufig dazu, NP-Schwere Probleme in polynomialer Zeit zu lösen.
-In der Praxis haben sich diese Algorithmen bewährt, weil für verschiedene Anwendungsfälle die Präzision des Ergebnisses weniger wichtig ist als die Geschwindigkeit mit der der Algorithmus ein Ergebnis liefert.
+Approximative Algorithmen sind Algorithmen die für ein Problem eine Lösung durch Annäherung finden. Die Lösung kann hierbei von der idealen Lösung abweichen. Dieses Verhalten dient häufig dazu, NP-Schwere Probleme in polynomialer Zeit zu lösen, oder den benötigten Speicherplatz möglichst gering zu halten.
+In der Praxis haben sich diese Algorithmen bewährt, weil für verschiedene Anwendungsfälle die Präzision des Ergebnisses weniger wichtig ist als die Geschwindigkeit oder der Speicherplatzverbrauch des Algorithmus der das Ergebnis liefern soll.
 
 Neben den aproximativen Algorithmen deren Anwendungsbereich sich nicht nur auf die Nutzung in Streams beschränkt gibt es die sogenannten Sketch Algorithmen, die eine Unterklasse der Streaming Algorithmen bilden. Diese sind speziell für die Anwendung auf Streams ausgelegt und einige Sketches bieten ähnlich wie approximative Algorithmen keine absoluten Ergebnisse. Diese Sketches liefern hierbei eine Lösung die auf einer Wahrscheinlichkeitsberechnung basiert.
 Sketches haben dabei gegenüber einer idealen Lösung nach \cite{apachedatasketches} die folgenden Vorteile:
@@ -10,7 +10,5 @@ Sketches haben dabei gegenüber einer idealen Lösung nach \cite{apachedatasketc
 \item Sublinearer Speicherbedarf: Der Speicherplatz für die Ausgabe skaliert nur sublinear mit der größe des Streams
 \item Bekannte Genauigkeit: Das Ergebnis muss nicht optimal sein, aber der Fehlerspielraum ist bekannt und kann gehandhabt werden.
 \end{itemize}
-
-
 
 %https://datasketches.apache.org/docs/Background/SketchOrigins.html
