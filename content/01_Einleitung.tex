@@ -2,11 +2,11 @@
 
 Approximative Algorithmen bieten Näherungslösungen für sonst nur ineffizient lösbare Probleme.
 So kann zum Beispiel durch leichte Einbußen der Genauigkeit der benötigte Speicherplatz oder die Geschwindigkeit der Lösung oft drastisch reduziert werden.
-Gerade in großen oder theoretisch gar endlosen Datenmengen wie in Streams ist eine exakte Lösung durch Speicherung aller Daten nicht realistisch.
-Da mithilfe eines Annäherungswerts so trotzdem eine etwaige Übersicht über die Daten gewonnen werden kann, hat sich diese Herangehensweise in der Praxis bewährt.
-Da im Fall der permanenten Beobachtung von Streams, anders als bei endlichen Datensätzen, der Annäherungsvorgang nicht abgeschlossen wird, ist es außerdem wichtig, dass jederzeit Ergebnisse abgerufen werden können, die auch zu jedem Zeitpunkt annähernd richtig sein sollten.
+Gerade in großen oder theoretisch endlosen Datenmengen wie in Streams ist eine exakte Lösung durch Speicherung aller Daten nicht realistisch.
+Da mithilfe eines Annäherungswerts ebenfalls eine akzeptable Übersicht über die Daten gewonnen werden kann, hat sich diese Herangehensweise in der Praxis bewährt.
+Im Fall der permanenten Beobachtung von Streams wird, anders als bei endlichen Datensätzen, der Annäherungsvorgang nicht abgeschlossen, daher ist es außerdem wichtig, dass jederzeit Ergebnisse abgerufen werden können, die auch zu jedem Zeitpunkt annähernd richtig sein sollten.
 
-Neben den aproximativen Algorithmen deren Anwendungsbereich sich nicht nur auf die Nutzung in Streams beschränkt gibt es die sogenannten Sketch Algorithmen, die eine Unterklasse der Streaming Algorithmen bilden.
+Neben den aproximativen Algorithmen, deren Anwendungsbereich sich nicht nur auf die Nutzung in Streams beschränkt, gibt es die sogenannten Sketch Algorithmen, die eine Unterklasse der Streaming Algorithmen bilden.
 Wie auch die approximativen Algorithmen bieten diese Näherungslösungen, basierend auf Wahrscheinlichkeitsberechnungen für unterschiedliche Probleme an.
 Apache \cite{apachedatasketches} definiert für diese Sketches folgende Vorteile, die jedoch ebenso für die meisten approximativen Algorithmen gelten:
 

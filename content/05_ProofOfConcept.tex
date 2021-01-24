@@ -29,15 +29,14 @@ Anschließend wurden Informationen zum Speicherverbrauch und der Genauigkeit der
 
 Beim HyperLogLog-Algorithmus werden eingehende Daten mit einer Hash-Funktion in eine zufällige Reihe aus Bits $\{0, 1\}^\infty$ umgewandelt.
 Abhängig von der gewünschten Genauigkeit wird dann eine bestimmte Anzahl $b$ Bits weggenommen.
-Diese Bits ergeben die binäre Speicheradresse eines Registers.
-Dies führt zu $m=2^b$ unterschiedlichen Registern.
+Diese Bits ergeben die binäre Speicheradresse eines Registers, was zu $m=2^b$ unterschiedlichen Registern führt.
 Je höher diese Zahl ist, desto genauer wird die Schätzung des Algorithmus.
 Von den übrig bleibenden Bits des Hashes wird die Position von links des höchstwertigen 1-Bit bestimmt und in das entsprechende Register geschrieben.
 Sollte das Register bereits einen höheren Wert enthalten, wird der alte Wert beibehalten.
-Aus diesen Registern wird bei Abfrage ein stochastischer Erwartungswert berechnet, welcher der Anzahl unterschiedlicher, eingefügter Elemente entsprechen soll \cite{flajolet2007}.
+Aus diesen Registern wird bei einer Abfrage ein stochastischer Erwartungswert berechnet, welcher der Anzahl unterschiedlicher, eingefügter Elemente entsprechen soll \cite{flajolet2007}.
 
 Für den Algorithmus berechnet sich eine Abweichung abhängig von der Anzahl der Register $e=1.04/\sqrt{m}$ \cite{flajolet2007}.
-Somit kann im Umkehrschluss auch die benötigte Anzahl an Registern und führenden Bits -- und somit auch der Speicherplatzbedarf -- aus einer gegebenen maximalen Abweichung wie in Gleichung~\eqref{eq:target-error} dargestellt berechnet werden.
+Somit kann im Umkehrschluss auch die benötigte Anzahl an Registern und führenden Bits -- und dadurch auch der Speicherplatzbedarf -- aus einer gegebenen maximalen Abweichung, wie in Gleichung~\eqref{eq:target-error} dargestellt, berechnet werden.
 Im Beispiel dieses Proof of Concept benötigt die gewählte Genauigkeit von einem Prozent $b = log_2 (\frac{1.04}{0.01})^2 = 13.40$, beziehungsweise aufgerundet 14 führende Bits des Hashes.
 Dies führt zu $m = 2^{14} = 16\,384$ benötigten Registern und somit einem maximalen Speicherverbrauch von 16\,384~Byte.
 
@@ -80,4 +79,4 @@ Ein Test mit Kardinalität dieser Größenordnung konnte aus technischen Gründe
 Da der Hauptteil der Approximation erst bei der Abfrage durchgeführt wird, ist das Hinzufügen eines Wertes zu einem HyperLogLog-Speicher außerdem sehr schnell.
 Im durchgeführten Test ergab sich für die naive Implementierung mit einer Menge eine durchschnittliche Zeit der Größenordnung 10\textsuperscript{-7}\,Sekunden (100\,ns), für die HyperLogLog-Varianten je 10\textsuperscript{-6}\,Sekunden (1\,\textmu{}s).
 Das Abfragen der Länge ging jedoch erwartungsgemäß etwas länger.
-Die Länge der Menge wurde in einer Größenordnung von 10\textsuperscript{-8}\,Sekunden (10\,ns) ermittelt, wobei die Approximationen je im Bereich 10\textsuperscript{-3} bis 10\textsuperscript{-2}\,Sekunden (1--10\,ms) lagen.
+Die Größe der Menge wurde in einer Größenordnung von 10\textsuperscript{-8}\,Sekunden (10\,ns) ermittelt, wobei die Approximationen je im Bereich 10\textsuperscript{-3} bis 10\textsuperscript{-2}\,Sekunden (1--10\,ms) lagen.

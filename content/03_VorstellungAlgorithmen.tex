@@ -2,7 +2,7 @@
 
 Approximative Algorithmen dienen jeweils sehr spezifischen Aufgaben, die in einem großen Datensatz oder Stream gelöst werden können.
 Da Probleme wie das Zählen unterschiedlicher Elemente oder das bestimmen eines häufigsten Elements mathematisch sehr unterschiedliche Herangehensweisen erfordern, können diese Algorithmen also nur für ein spezielles Aufgabengebiet eingesetzt werden.
-Hier sollen einige Algorithmen mit unterschiedlichen Einsatzgebieten und deren Funktionsweisen grob vorgestellt werden, um einen Überblick über verschiedene Aufgabenbereiche und deren Lösungen zu bieten.
+In diesem Kapitel sollen einige Algorithmen mit unterschiedlichen Einsatzgebieten und deren Funktionsweisen grob vorgestellt werden, um einen Überblick über verschiedene Aufgabenbereiche und deren Lösungen zu bieten.
 
 \subsection{HyperLogLog}
 
@@ -13,7 +13,7 @@ Da die naive Lösung dieses Problems, die Speicherung in einer Menge und das Aus
 Dieses Problem wurde schon in der ersten Version des Algorithmus gelöst und seitdem stetig weiterentwickelt.
 So konnte der Speicherbedarf bei der Weiterentwicklung des LogLog- zum HyperLogLog-Algorithmus um 64\% gesenkt werden, ohne dabei Präzision des Ergebnisses einzubüßen \cite{flajolet2007}.
 
-Die Funktionsweise des HyperLogLog-Algorithmus wird in \autoref{sec:proof-of-concept-funktionsweise} detaillierter behandelt und deswegen hier nicht weiter beschrieben.
+Die Funktionsweise des HyperLogLog-Algorithmus wird in \autoref{sec:proof-of-concept-funktionsweise} detaillierter behandelt und aus diesem Grund an dieser Stelle nicht weiter beschrieben.
 
 \subsection{T-Digest}
 
@@ -29,8 +29,8 @@ Diesen Schwerpunkten (engl. Centroids) wird ein Gewicht zugewiesen, woraus sich 
 Laut Dunning \cite{dunning2015} ist hierbei eine höhere Präzision vor allem in den Randbereichen der Verteilung von besonderer Wichtigkeit.
 So sei eine Abweichung von etwa 0,5\% im Bereich des Medians in Ordnung, in Extremfällen wie dem 99,99\%-Quantil jedoch nicht mehr, da es hier darauf ankommt, einen sehr kleinen Bereich zu identifizieren.
 Die Verteilung der Gewichte auf Schwerpunkte und das Auslassen von Punkten ist in \autoref{fig:t-digest} dargestellt.
-In diesem Beispiel wurden 100\,000 zufällige Zahlen im Bereich von 1 bis 1\,000, deren Verteilung links zu sehen ist, durch den T-Digest Algorithmus auf Schwerpunkte reduziert und mit einem Gewicht versehen.
-Hierbei bleiben die Randbereiche größtenteils erhalten und bieten so die höchste Präzision, während zur Mitte hin die Cluster, welche zu einem stärker gewichteten Schwerpunkt zusammengefasst werden, größer werden.
+In diesem Beispiel wurden 100\,000 zufällige Zahlen im Bereich von 1 bis 1\,000, deren Verteilung im linken Graphen zu sehen ist, durch den T-Digest Algorithmus auf Schwerpunkte reduziert und mit einem Gewicht versehen.
+Hierbei bleiben die Randbereiche größtenteils erhalten und bieten so die höchste Präzision, während die Cluster, welche zu einem stärker gewichteten Schwerpunkt zusammengefasst werden, zur Mitte hin größer werden.
 
 \begin{figure}[b]
 	\centering
@@ -41,9 +41,9 @@ Hierbei bleiben die Randbereiche größtenteils erhalten und bieten so die höch
 \end{figure}
 
 In einem selbst durchgeführten Test, in dem eine Implementierung des T-Digest-Algorithmus mit einer einfachen, sortierten Liste verglichen wurde, hat sich die Präzision des T-Digest als sehr gut herausgestellt.
-Es wurden 100\,000 verschiedene, zufällige Zahlen von 1 bis 1\,000 in beide Objekte eingetragen, wobei anschließend je der Median, sowie das 99,99\%-Quantil geprüft wurden.
+Dabei wurden 100\,000 verschiedene, zufällige Zahlen von 1 bis 1\,000 in beide Objekte eingetragen, wobei anschließend je der Median, sowie das 99,99\%-Quantil geprüft wurden.
 
-Hierbei ergab sich, dass der Median zwar nur in 0,33\% der Fälle akkurat war, jedoch nie eine Abweichung von $\pm$\,0,5\% überschritt.
+Aus dem Test ergab sich, dass der Median zwar nur in 0,33\% der Fälle akkurat war, jedoch nie eine Abweichung von $\pm$\,0,5\% überschritt.
 Für das 99,99\%-Quantil war der T-Digest in 99,79\% der Fälle akkurat, in den übrigen Fällen wies er eine Abweichung von maximal $\pm$\,0,01\% auf.
 
 Außerdem hat sich die von Dunning und Ertl \cite{dunning2019} beschriebene, sehr hohe Geschwindigkeit bei diesem Test ebenso bewahrheitet.
@@ -68,7 +68,7 @@ von denen erwartet wird, dass sie oft in dem Stream enthalten sind.
 Um die Häufigkeit eines Elements zu ermitteln 
 nutzt der Algorithmus ein Array mit mehreren Zeilen 
 und ebenso viele verschiedene Hash-Funktionen.
-Der Zusammenhang zwischen Hash-Funktionen und den Zeilen durch die einzelnen Reihen in \autoref{fig:count-min-sketch} dargestellt. 
+Der Zusammenhang zwischen Hash-Funktionen und den Zeilen durch die einzelnen Reihen ist in \autoref{fig:count-min-sketch} dargestellt. 
 Jedes Element des Streams wird mit den Hash-Funktionen gehasht 
 und in die der Hash-Funktion zugeteilte Zeile eingetragen. 
 Wird ein Hash-Wert in einer Zeile mehrfach hinzugefügt -- egal ob durch den selben oder einen anderen Wert -- 
@@ -141,7 +141,7 @@ der Count-Min-Sketch dem Bedürfnis von Präzision oder Geschwindigkeit anpassen
 StreamApprox ist ein Sampling Algorithmus der dafür entwickelt wurde, 
 die Datenmenge eines Streams auf eine bestimmte Größe zu limitieren, 
 indem er nur einige Daten des Streams weiterreicht. 
-Dabei erfolgt die Selektierung, welche Daten weitergegeben werden, durch einen Zufallsalgorithmus. 
+Dabei erfolgt die Selektierung, welche der Daten weitergegeben werden, durch einen Zufallsalgorithmus. 
 Auf diese Weise wird das Ergebnis der Auswertung des Streams weniger stark beeinträchtigt, 
 als wenn die Daten, die die Verarbeitungskapazitäten überschreiten, 
 überhaupt nicht betrachtet werden. 
@@ -150,7 +150,7 @@ Das besondere an StreamApprox ist die Fähigkeit,
 die Größe des Streams zu limitieren und dabei so wenig Daten wie möglich aus dem Stream zu entfernen. 
 Der Algorithmus reduziert also nur dann den Datenstrom, wenn dessen Datenmenge ein eingestelltes Limit überschreitet. 
 Diese Fähigkeit übersteigt die von Random Sampling Algorithmen, 
-die für eine ähnliche Ausgabe die absolute Anzahl an Elementen des Streams kennen müssten. 
+die für eine ähnliche Ausgabe die absolute Anzahl an Elementen des Streams kennen müssten \cite{quoc2017}. 
 Ermöglicht wird das durch die Verwendung von sog. Reservoir Sampling, 
 bei dem die Elemente des Streams in einen Pufferspeicher geschrieben werden, 
 wobei neue Elemente an einer zufälligen Stelle des Puffers den vorherigen Wert überschreiben, sobald dieser voll ist \cite{quoc2017}. 
