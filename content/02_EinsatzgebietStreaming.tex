@@ -6,27 +6,28 @@ und sollten abgearbeitet werden, bevor die nächsten Daten eintreffen.
 Außerdem sollen die aus dem Stream gewonnenen Informationen möglichst in Echtzeit abrufbar bleiben.
 Auch die Datenmenge in einem Stream kann stark variieren, wodurch ein hohes Maß an Skalierbarkeit gefordert werden kann.
 
-Unter diesen Anforderungen bieten sich approximative Algorithmen an, denn sie bieten eine schnellere Ausführungszeit und eine bessere Skalierbarkeit als exakte Algorithmen. 
+Unter diesen Anforderungen bieten sich approximative Algorithmen an, denn sie bieten eine schnellere Ausführungszeit und eine bessere Skalierbarkeit als exakte Lösungen. 
 Für diesen Vorteil büßen sie jedoch ihre absolute Genauigkeit ein. 
-In der Praxis überwiegt der Gewinn von Geschwindigkeit dem Verlust an Genauigkeit jedoch häufig \cite{maas2019}. 
+In der Praxis überwiegt der Gewinn von Performanz dem Verlust an Genauigkeit jedoch häufig \cite{maas2019}. 
 
 Nach Maas und Garillot \cite{maas2019} unterliegt die Datenverarbeitung in einem Stream durch approximative Algorithmen den folgenden drei Eigenschaften:  
 
 \begin{itemize}
 \item der Genauigkeit der erzeugten Ergebnisse,
 \item der Ausführung in Echtzeit (Performanz)
-\item und der zu verarbeitende Datenmenge.
+\item und der zu verarbeitenden Datenmenge.
 \end{itemize}
 
+Über die Verarbeitung in Echtzeit hinaus kann außerdem der vom Algorithmus benötigte Speicherplatz zur Performanz hinzugezählt werden.
 Diese Eigenschaften beeinflussen sich gegenseitig, was dazu führt, 
-dass es fast unmöglich ist für alle drei Eigenschaften die bestmöglichen Resultate zu erzielen.
+dass es fast unmöglich ist, für alle drei Eigenschaften die bestmöglichen Resultate zu erzielen.
 So nimmt beispielsweise die Präzision approximativer Algorithmen ab, 
 wenn sie auf die Verwendung für große Datenmengen oder eine möglichst hohe Performanz abzielen \cite{maas2019}.
 
-In Datenstreams kann es interessant sein zu wissen, 
+In Datenstreams kann es interessant sein, zu wissen, 
 wie die Verteilung der Daten ausfallen wird. 
 So können zum Beispiel Netzanbieter ermitteln, 
-wie viele ihrer Kunden die Bandbreite erhalten, die ihnen zur verfügung stehen sollte 
+wie viele ihrer Kunden die Bandbreite erhalten, die ihnen zur Verfügung stehen sollte 
 und können eine Störung erfassen, 
 noch bevor sich größere Mengen von Kunden über eine zu niedrige Bandbreite beschweren können.
 Auch kann es hilfreich sein, zu erfassen, 
@@ -35,5 +36,4 @@ So lässt sich beispielsweise auf einer Webseite wie Wikipedia über einen Tag e
 Die ermittelte Zahl kann dann mit der Gesamtzahl an Änderungen über den Tag verglichen werden, 
 um so zu erfahren, ob an einem Tag besonders viele Änderungen von besonders wenigen Nutzern gemacht wurden.
 Für beide Anwendungsfälle aus dem sogenannten Count-Distinct-Problem eignet sich zum Beispiel der HyperLogLog-Algorithmus besonders gut, 
-weil dieser sich durch Schnelligkeit bei der Auswertung 
-bei geringem Speicherplatzbedarf und trotzdem hoher Präzision bewiesen hat.
+weil dieser sich durch Schnelligkeit, geringen Speicherplatzbedarf und trotzdem hoher Präzision bewiesen hat.

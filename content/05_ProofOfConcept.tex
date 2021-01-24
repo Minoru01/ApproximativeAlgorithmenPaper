@@ -6,7 +6,7 @@ Die Streambeobachtung des Proof of Concept ist im Anhang in \autoref{lst:wikistr
 
 Die Wikimedia Foundation bietet EventStreams für diverse Änderungen an.
 Für dieses Beispiel wichtig ist der unter \url{https://stream.wikimedia.org/v2/stream/recentchange} gelieferte Stream über alle Seitenänderungen.
-Da der Stream Änderungen an diversen Wikis der Wikimedia Foundation überträgt, werden die einkommenden Events nach der Domain ,,wikipedia.org`` gefiltert.
+Da der Stream Änderungen an diversen Wikis der Wikimedia Foundation überträgt, werden die eingehenden Events nach der Domain ,,wikipedia.org`` gefiltert.
 
 Die Seitennamen der eingehenden Events werden dann auf drei verschiedene Arten gespeichert:  in einer Menge, um so eine naive Implementierung und einen Vergleichswert mit den Alternativen herzustellen, in einer bestehenden Implementierung des HyperLogLog-Algorithmus aus der gleichnamigen Python-Bibliothek \cite{evseenko2018} und in einer minimalen, eigenen Implementierung des Algorithmus, zu sehen im Anhang in \autoref{lst:hyperloglog}.
 Die Genauigkeit des HyperLogLog-Algorithmus kann dabei proportional zum Speicherplatzbedarf gesteigert werden.
@@ -28,15 +28,16 @@ Anschließend wurden Informationen zum Speicherverbrauch und der Genauigkeit der
 \end{figure*}
 
 Beim HyperLogLog-Algorithmus werden eingehende Daten mit einer Hash-Funktion in eine zufällige Reihe aus Bits $\{0, 1\}^\infty$ umgewandelt.
-Abhängig von der gewünschten Genauigkeit wird dann eine bestimmte Anzahl $b$ Bits weggenommen.
+Abhängig von der gewünschten Genauigkeit wird dann eine bestimmte Anzahl Bits $b$ weggenommen.
 Diese Bits ergeben die binäre Speicheradresse eines Registers, was zu $m=2^b$ unterschiedlichen Registern führt.
 Je höher diese Zahl ist, desto genauer wird die Schätzung des Algorithmus.
+Allerdings steigt mit steigender Anzahl Register auch der benötigte Speicherplatz.
 Von den übrig bleibenden Bits des Hashes wird die Position von links des höchstwertigen 1-Bit bestimmt und in das entsprechende Register geschrieben.
 Sollte das Register bereits einen höheren Wert enthalten, wird der alte Wert beibehalten.
 Aus diesen Registern wird bei einer Abfrage ein stochastischer Erwartungswert berechnet, welcher der Anzahl unterschiedlicher, eingefügter Elemente entsprechen soll \cite{flajolet2007}.
 
 Für den Algorithmus berechnet sich eine Abweichung abhängig von der Anzahl der Register $e=1.04/\sqrt{m}$ \cite{flajolet2007}.
-Somit kann im Umkehrschluss auch die benötigte Anzahl an Registern und führenden Bits -- und dadurch auch der Speicherplatzbedarf -- aus einer gegebenen maximalen Abweichung, wie in Gleichung~\eqref{eq:target-error} dargestellt, berechnet werden.
+Somit kann im Umkehrschluss auch die benötigte Anzahl an Registern und führenden Bits -- und dadurch auch der Speicherplatzbedarf -- aus einer gegebenen maximalen Abweichung wie in Gleichung~\eqref{eq:target-error} dargestellt berechnet werden.
 Im Beispiel dieses Proof of Concept benötigt die gewählte Genauigkeit von einem Prozent $b = log_2 (\frac{1.04}{0.01})^2 = 13.40$, beziehungsweise aufgerundet 14 führende Bits des Hashes.
 Dies führt zu $m = 2^{14} = 16\,384$ benötigten Registern und somit einem maximalen Speicherverbrauch von 16\,384~Byte.
 
@@ -56,7 +57,7 @@ So erreichte dieser die gewünschte Genauigkeit von 99\% erst bei 44\,162 einzig
 Ab diesem Eintrag verhielten sich beide Implementierungen, die eigene und die von Evseenko \cite{evseenko2018}, sehr ähnlich, jedoch erst ab dem 398\,115. einzigartigen Eintrag vollkommen identisch.
 
 Diese Abweichung entstammt einem Bias des HyperLogLog-Algorithmus, weshalb niedrige Kardinalitäten stark überschätzt werden \cite{heule2013}.
-Um diesem Problem entgegenzuwirken, kann eine Linear-Counting-Funktion unterhalb einer gewissen Schwelle eingesetzt werden, was auch in der bezogenen Implementierung verwendet wird \cite{evseenko2018}.
+Um diesem Problem entgegenzuwirken kann eine Linear-Counting-Funktion unterhalb einer gewissen Schwelle eingesetzt werden, was auch in der bezogenen Implementierung verwendet wird \cite{evseenko2018}.
 
 Der gemessene Speicherbedarf bei der HyperLogLog-Implementierung lag, wie in \autoref{fig:hll-memory} dargestellt, stabil bei den zuvor berechneten 16\,384~Byte.
 Demhingegen steigt der Speicherverbrauch der naiven Python-Implementierung in einer Menge rasant an.
@@ -77,6 +78,6 @@ Flajolet et al. \cite{flajolet2007} beschreiben eine gute Approximation für Kar
 Ein Test mit Kardinalität dieser Größenordnung konnte aus technischen Gründen nicht durchgeführt werden.
 
 Da der Hauptteil der Approximation erst bei der Abfrage durchgeführt wird, ist das Hinzufügen eines Wertes zu einem HyperLogLog-Speicher außerdem sehr schnell.
-Im durchgeführten Test ergab sich für die naive Implementierung mit einer Menge eine durchschnittliche Zeit der Größenordnung 10\textsuperscript{-7}\,Sekunden (100\,ns), für die HyperLogLog-Varianten je 10\textsuperscript{-6}\,Sekunden (1\,\textmu{}s).
-Das Abfragen der Länge ging jedoch erwartungsgemäß etwas länger.
+Im durchgeführten Test ergab sich beim Einfügen eines Elements für die naive Implementierung mit einer Menge eine durchschnittliche Zeit der Größenordnung 10\textsuperscript{-7}\,Sekunden (100\,ns), für die HyperLogLog-Varianten je 10\textsuperscript{-6}\,Sekunden (1\,\textmu{}s).
+Das Abfragen der Kardinalität ging jedoch erwartungsgemäß etwas länger, da hier die Approximation durchgeführt wird.
 Die Größe der Menge wurde in einer Größenordnung von 10\textsuperscript{-8}\,Sekunden (10\,ns) ermittelt, wobei die Approximationen je im Bereich 10\textsuperscript{-3} bis 10\textsuperscript{-2}\,Sekunden (1--10\,ms) lagen.

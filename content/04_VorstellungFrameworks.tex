@@ -1,5 +1,5 @@
 \section{Vorstellung: Frameworks und Bibliotheken}
-Die vorgestellten Algorithmen und weitere approximative Algorithmen wurden bereits in einige Frameworks und Bibliotheken eingebunden. Nachfolgend werden drei dieser vorgestellt, um einen kurzen Überblick über die eingebundenen Algorithmen sowie die Verwendung der Frameworks und Bibliotheken zu bieten.
+Die vorgestellten und weitere approximative Algorithmen sind bereits in einigen Frameworks und Bibliotheken eingebunden. Nachfolgend werden drei solche vorgestellt, um einen kurzen Überblick über die eingebundenen Algorithmen sowie die Verwendung der Frameworks und Bibliotheken zu bieten.
 
 \subsection{Apache Spark}
 Das Apache Spark Framework bietet Bibliotheken für Streaming, SQL, Machine Learning und Graphverarbeitung in Java, Scala und Python an. 
@@ -13,7 +13,7 @@ und kann einen ungefähren Wert zu einem bestimmten Quantil ausgeben.
 In der Streaming Bibliothek werden Implementierungen des Bloom Filters für contains-Abfragen und Count-Min Sketch für Abfragen der Häufigkeiten von Elementen angeboten.
 
 \subsection{Apache DataSketches}
-Apache DataSketches ist eine Bibliothek für die Sprachen Java, C++ und Python die stochasitische Streamingalgorithmen, 
+Apache DataSketches ist eine Bibliothek für die Sprachen Java, C++ und Python, die stochastische Streamingalgorithmen, 
 auch Sketches genannt, anbietet. 
 Diese Sketches können auch sehr große Mengen an Daten aus Streams verarbeiten 
 und liefern dabei approximative Lösungen. 
@@ -30,8 +30,8 @@ Die Apache DataSketches Bibliothek ist für die Sprachen Java, C++ und Python ve
 
 \subsection{stream-lib}
 Die öffentliche Java-Bibliothek stream-lib bietet Implementierungen für die approximativen Algorithmen LogLog, 
-HyperLogLog und HyperLogLog++ für die Bestimmung von Kardinalitäten in Streams, 
+HyperLogLog und HyperLogLog++ für die Bestimmung der Kardinalität von Elementen in Streams, 
 sowie die Algorithmen T-Digest und Q-Digest für die Bestimmung von Quantilen in Streams \cite{streamlib2019}. 
-Das Projekt befasst sich, anders als Apache Spark, speziell mit der Implementierung approximativer Algorithmen und ist minimalistischer umgesetzt als die Implementierungen von Apache DataSketches. Deshalb bietet sich das Projekt besonders als Unterstützung beim Einlernen in das Thema approximative Algorithmen oder der Einbindung der angebotenen Algorithmen in eigene Projekte an.
+Das Projekt befasst sich, anders als Apache Spark, speziell mit der Implementierung approximativer Algorithmen und ist minimalistischer umgesetzt als die Implementierungen von Apache DataSketches. Deshalb bietet sich das Projekt besonders als Unterstützung beim Einlernen in das Thema approximativer Algorithmen oder der Einbindung der angebotenen Algorithmen in eigene Projekte an.
 Das GitHub-Projekt, auf dem die Bibliothek basiert, wurde archiviert, 
 es ist also warscheinlich, dass das Projekt von Seiten des Entwicklerteams nicht weiterentwickelt wird.

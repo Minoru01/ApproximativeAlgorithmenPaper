@@ -1,8 +1,8 @@
 from datetime import datetime, timedelta
+from hll_custom import HyperLogLog as HyperLogLogCustom
+from hyperloglog import HyperLogLog
 from json import loads
 from sseclient import SSEClient
-from hyperloglog import HyperLogLog
-from hll_custom import HyperLogLog as HyperLogLogCustom
 from sys import getsizeof
 
 start_time = datetime.now()

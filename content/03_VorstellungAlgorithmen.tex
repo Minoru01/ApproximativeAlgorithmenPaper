@@ -1,14 +1,14 @@
 \section{Vorstellung: Algorithmen}
 
 Approximative Algorithmen dienen jeweils sehr spezifischen Aufgaben, die in einem großen Datensatz oder Stream gelöst werden können.
-Da Probleme wie das Zählen unterschiedlicher Elemente oder das bestimmen eines häufigsten Elements mathematisch sehr unterschiedliche Herangehensweisen erfordern, können diese Algorithmen also nur für ein spezielles Aufgabengebiet eingesetzt werden.
+Da Probleme wie das Zählen unterschiedlicher Elemente oder das Bestimmen eines häufigsten Elements mathematisch sehr unterschiedliche Herangehensweisen erfordern, können diese Algorithmen also nur für ein spezielles Aufgabengebiet eingesetzt werden.
 In diesem Kapitel sollen einige Algorithmen mit unterschiedlichen Einsatzgebieten und deren Funktionsweisen grob vorgestellt werden, um einen Überblick über verschiedene Aufgabenbereiche und deren Lösungen zu bieten.
 
 \subsection{HyperLogLog}
 
 Der HyperLogLog-Algorithmus basiert auf dem Flajolet-Martin-Algorithmus, welcher erst von Durand und Flajolet \cite{durand2003} zum LogLog-Algorithmus und schließlich von Flajolet et al. \cite{flajolet2007} zum HyperLogLog-Algorithmus weiterentwickelt wurde.
 Der Algorithmus dient der approximativen Lösung des sog. Count-Distinct-Problems, bei dem es die Anzahl unterschiedlicher, auftretender Elemente zu zählen gilt.
-Da die naive Lösung dieses Problems, die Speicherung in einer Menge und das Auslesen deren Länge, bei großen Datenmengen zu einem stetig steigenden Speicherplatzbedarf führt, ist eine speicherplatzeffiziente Lösung mit annähernd korrektem Ergebnis vorzuziehen.
+Da die naive Lösung dieses Problems, die Speicherung in einer Menge und das Auslesen deren Größe, bei großen Datenmengen zu einem stetig steigenden Speicherplatzbedarf führt, ist eine speicherplatzeffiziente Lösung mit annähernd korrektem Ergebnis vorzuziehen.
 
 Dieses Problem wurde schon in der ersten Version des Algorithmus gelöst und seitdem stetig weiterentwickelt.
 So konnte der Speicherbedarf bei der Weiterentwicklung des LogLog- zum HyperLogLog-Algorithmus um 64\% gesenkt werden, ohne dabei Präzision des Ergebnisses einzubüßen \cite{flajolet2007}.
@@ -60,7 +60,7 @@ Der Count-Min-Sketch ist ein Algorithmus von Cormode und Muthukrishnan \cite{cor
 mit dem die Häufigkeit aller Elemente in einem Stream approximativ ermittelt werden kann. 
 Die Häufigkeiten werden dabei in ein Array geschrieben, 
 wodurch die benötigte Speichergröße für die Datenmenge stark komprimiert, 
-aber dafür etwas ungenauer wird. 
+das Ergebnis aber dafür etwas ungenauer wird. 
 Der Algorithmus weist für häufige Elemente eine hohe Genauigkeit auf 
 und wird deshalb für die Ermittlung der Häufigkeit von Elementen genutzt, 
 von denen erwartet wird, dass sie oft in dem Stream enthalten sind.
@@ -71,10 +71,10 @@ und ebenso viele verschiedene Hash-Funktionen.
 Der Zusammenhang zwischen Hash-Funktionen und den Zeilen ist durch die einzelnen Reihen in \autoref{fig:count-min-sketch} dargestellt. 
 Jedes Element des Streams wird mit den Hash-Funktionen gehasht 
 und in die der Hash-Funktion zugeteilte Zeile eingetragen. 
-Wird ein Hash-Wert in einer Zeile mehrfach hinzugefügt -- egal ob durch den selben oder einen anderen Wert -- 
+Wird ein Hash-Wert in einer Zeile mehrfach hinzugefügt -- egal ob durch das gleiche oder ein anderes Element des Streams -- 
 erhöht sich ein Counter für diesen Hash-Wert. 
 Diese Erhöhung ist in \autoref{fig:count-min-sketch} durch ein +1 in einer Zelle für den entsprechenden Hash-Wert dargestellt.
-Es kann passieren, dass für verschiedene Werte der selbe Hash-Wert erzeugt 
+Es kann passieren, dass für verschiedene Elemente der gleiche Hash-Wert erzeugt 
 und so auch der gleiche Counter erhöht wird.
 Durch dieses Verhalten kann für einen einzelnen Hash-Wert 
 schlussendlich nicht mehr unterschieden werden, 
@@ -130,17 +130,19 @@ der dem tatsächlichen Wert am nächsten kommt \cite{cormode2017}.
 
 Der Aufbau des Algorithmus ähnelt dem des Bloom Filter Algorithmus \cite{cormode2017}. 
 Das Array, das für den Bloom Filter Algorithmus verwendet wird, 
-hat jedoch nur eine Zeile in die die gehashten Werte aller Hash-Funktionen eingetragen werden \cite{cormode2017}.
+hat jedoch nur eine Zeile, in die die gehashten Werte aller Hash-Funktionen eingetragen werden \cite{cormode2017}.
 
 Durch die Erhöhung der Menge verschiedener Hash-Funktionen kann die Abweichung des Counts reduziert werden. 
 Somit lässt sich durch Erhöhen oder Reduzieren der Menge an Hash-Funktionen 
-der Count-Min-Sketch dem Bedürfnis von Präzision oder Geschwindigkeit anpassen.
+der Count-Min-Sketch dem Bedürfnis von Präzision oder Geschwindigkeit und Speichergröße anpassen.
 
 \subsection{StreamApprox}
 
-StreamApprox ist ein Sampling Algorithmus der dafür entwickelt wurde, 
+StreamApprox ist ein Sampling Algorithmus, der dafür entwickelt wurde, 
 die Datenmenge eines Streams auf eine bestimmte Größe zu limitieren, 
 indem er nur einige Daten des Streams weiterreicht. 
+Somit dient dieser Algorithmus der Verringerung der gegebenen Datenmenge,
+um unter Einbußen der Genauigkeit die Performanz anderer Algorithmen zu steigern.
 Dabei erfolgt die Selektierung, welche der Daten weitergegeben werden, durch einen Zufallsalgorithmus. 
 Auf diese Weise wird das Ergebnis der Auswertung des Streams weniger stark beeinträchtigt, 
 als wenn die Daten, die die Verarbeitungskapazitäten überschreiten, 
@@ -160,7 +162,7 @@ wenn die Datenmenge für die gewünschte Analyse stark variiert oder zu groß is
 um eine bestimmte Verarbeitungsgeschwindigkeit beizubehalten, 
 ohne das Ergebnis der Analyse zu stark zu beeinflussen.
 Bei einer Entfernung der Daten mit einem Muster, zum Beispiel Überschreiben jedes zweiten Felds im Pufferspeicher, 
-könnten so eventuelle Muster einkommender Daten stärker betroffen sein, als bei einem zufälligen Überschreiben.
+könnten eventuelle Muster in den einkommenden Daten stärker betroffen sein, als beim zufälligen Überschreiben.
 Es kann ebenfalls hilfreich sein, 
 wenn, aufgrund fehlender Ressourcen zur Verarbeitung, 
 die Menge an gelieferten Daten reduziert werden soll.
