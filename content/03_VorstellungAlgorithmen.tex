@@ -40,8 +40,8 @@ Hierbei bleiben die Randbereiche größtenteils erhalten und bieten so die höch
 	\label{fig:t-digest}
 \end{figure}
 
-In einem selbst durchgeführten Test, in dem eine Implementierung des T-Digest-Algorithmus mit einer einfachen, sortierten Liste verglichen wurde, hat sich die Präzision des T-Digest als sehr gut herausgestellt.
-Dabei wurden 100\,000 verschiedene, zufällige Zahlen von 1 bis 1\,000 in beide Objekte eingetragen, wobei anschließend je der Median, sowie das 99,99\%-Quantil geprüft wurden.
+In dem in \autoref{fig:t-digest} dargestellten, selbst durchgeführten Test, in dem eine Implementierung des T-Digest-Algorithmus mit einer sortierten Liste verglichen wurde, hat sich die Präzision des T-Digest als sehr gut herausgestellt.
+Nachdem die Elemente in beide Objekte eingetragen wurden, wurde anschließend je der Median, sowie das 99,99\%-Quantil geprüft.
 
 Aus dem Test ergab sich, dass der Median zwar nur in 0,33\% der Fälle akkurat war, jedoch nie eine Abweichung von $\pm$\,0,5\% überschritt.
 Für das 99,99\%-Quantil war der T-Digest in 99,79\% der Fälle akkurat, in den übrigen Fällen wies er eine Abweichung von maximal $\pm$\,0,01\% auf.
@@ -68,7 +68,7 @@ von denen erwartet wird, dass sie oft in dem Stream enthalten sind.
 Um die Häufigkeit eines Elements zu ermitteln 
 nutzt der Algorithmus ein Array mit mehreren Zeilen 
 und ebenso viele verschiedene Hash-Funktionen.
-Der Zusammenhang zwischen Hash-Funktionen und den Zeilen durch die einzelnen Reihen ist in \autoref{fig:count-min-sketch} dargestellt. 
+Der Zusammenhang zwischen Hash-Funktionen und den Zeilen ist durch die einzelnen Reihen in \autoref{fig:count-min-sketch} dargestellt. 
 Jedes Element des Streams wird mit den Hash-Funktionen gehasht 
 und in die der Hash-Funktion zugeteilte Zeile eingetragen. 
 Wird ein Hash-Wert in einer Zeile mehrfach hinzugefügt -- egal ob durch den selben oder einen anderen Wert -- 
